@@ -1,0 +1,3 @@
+[submodule "xsd"]
+	path = xsd
+	url = https://github.com/NeTEx-CEN/NeTEx/tree/v2.0
