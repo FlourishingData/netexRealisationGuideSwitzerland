@@ -1,8 +1,8 @@
-# The realisation guide itself
+# Swiss profile 2.0 for NeTEx 2.0
 
-- Introduction
+- Introduction & Roadmap
 - Basic concepts of NeTEx
-- Guidance principles
+- Guiding principles for the profile
 - Physical model
 - Services
 - Timetables
@@ -13,3 +13,7 @@
   - Transfers / transfer times
 - Other profiles
 - Resources and references
+
+
+Contact: info.fachbus@sbb.ch
+
