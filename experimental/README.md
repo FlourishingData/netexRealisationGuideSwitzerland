@@ -41,7 +41,7 @@ pandoc NeTEx.docx from=docx
   --track-changes=accept
   -o output.md
 ```
-#### XSD to Markdown
+### XSD to Markdown
 
 It is relatively easy to write a script to generate a Markdown table from XSD: 
 
