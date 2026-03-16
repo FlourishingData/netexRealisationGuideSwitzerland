@@ -41,4 +41,12 @@ pandoc NeTEx.docx from=docx
   --track-changes=accept
   -o output.md
 ```
- 
+#### XSD to Markdown
+
+It is relatively easy to write a script to generate a Markdown table from XSD: 
+
+`python xsd2md.py StopPlace.xsd StopPlace > StopPlace.md`
+
+According examples for `xsd2md.py`, `StopPlace.xsd` and the generated Markdown are included in this directory of the repo. 
+The content of the Documentation column is extracted from `documentation` elements inside the elements of the XSD.
+
