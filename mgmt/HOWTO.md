@@ -27,3 +27,12 @@ usage of mermaid instead of plantuml
 
 ## Initial loading from work
 Here we describe how we process the 2.0 word to the first version of  MD.
+
+## Setup XSD
+We work here to create the next NeTEX realisation guide.
+
+When you clone this project, you will get an empty xsd directory. To complete the xsd download run:
+```
+git submodule init
+git submodule update 
+```
