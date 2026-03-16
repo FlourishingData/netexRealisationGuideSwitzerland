@@ -11,6 +11,10 @@ We work here to create the next NeTEX realisation guide
 * README.md: the starting file
 
 ## Roadmap
+* 2026-4: repo ready, moved to MD
+* 2026-7: first draft ready
+* 2026-12: ready for release, discussed with KI ADM and KIDS AG Solldaten
+
 
 ## Contact
 Contact: info.fachbus@sbb.ch
