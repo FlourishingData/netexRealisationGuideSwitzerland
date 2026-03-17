@@ -8,7 +8,7 @@
 			<ValidBetween>
 				<!-- Fahrplanjahr 25/26 -->
 				<FromDate>2025-12-15T00:00:00</FromDate>
-				<ToDate>2026-12-14T23:59:59</ToDate>
+				<ToDate>2026-12-12T23:59:59</ToDate>
 			</ValidBetween>
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame:1" version="any">
@@ -16,6 +16,22 @@
 						<ValidityCondition id="ch:1:ValidityCondition:1" version="any">		
 						</ValidityCondition>
 					</validityConditions>
+					<responsibilitySets>
+						<ResponsibilitySet id="ch:1:ResponsibilitySet:BLS-bls-33" version="any">
+							<Name>BLS</Name>
+							<PrivateCode>BLS AG</PrivateCode>
+							<roles>
+								<ResponsibilityRoleAssignment id="ch:1:ResponsibilityRoleAssignment:BLS-Bls-33:1" version="any">
+									<StakeholderRoleType>entityLegalOwnership</StakeholderRoleType>
+									<ResponsibleOrganisationRef ref="ch:1:sboid:100015" version="any"/>
+								</ResponsibilityRoleAssignment>
+								<ResponsibilityRoleAssignment id="ch:1:ResponsibilityRoleAssignment:BLS-Bls-33:2" version="any">
+									<StakeholderRoleType>operation</StakeholderRoleType>
+									<ResponsibleOrganisationRef ref="ch:1:sboid:100015" version="any"/>
+								</ResponsibilityRoleAssignment>
+							</roles>
+						</ResponsibilitySet>
+					</responsibilitySets>
 					<typesOfValue>
 						<ValueSet id="ch:1:ValueSet:TypeOfProductCategory" version="any" nameOfClass="TypeOfProductCategory">
 							<Name>ProductCategories</Name>
@@ -40,7 +56,7 @@
 								</KeyValue>
 							</keyList>
 							<PrivateCode>ch:1:sboid:101105</PrivateCode>
-							<Name lang="de">BLS</Name>
+							<Name lang="de">BLS AG</Name>
 							<ShortName lang="de">BLS</ShortName>
 						</Operator>
 					</organisations>
@@ -284,52 +300,8 @@
 					</stopPlaces>
 				</SiteFrame>
 				<ServiceFrame id="ch:1:ServiceFrame:1" version="any">
-					<routes>
-						<Route id="Route:1" version="any">
-							<LineRef ref="ch:1:slnid:1024437"/>
-							<DirectionType>outbound</DirectionType>
-							<pointsInSequence>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:1.1" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7000:5:9"/>
-								</PointOnRoute>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:1.2" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7100:1:1"/>
-								</PointOnRoute>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:1.3" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7483:0:954324"/>
-								</PointOnRoute>
-							</pointsInSequence>
-						</Route>
-						<Route id="Route:2" version="any">
-							<LineRef ref="ch:1:slnid:1024426"/>
-							<DirectionType>outbound</DirectionType>							
-							<pointsInSequence>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:2.1" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7483:0:954324"/>
-								</PointOnRoute>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:2.2" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7478:0:852180"/>
-								</PointOnRoute>
-							</pointsInSequence>
-						</Route>
-						<Route id="Route:3" version="any">
-							<LineRef ref="ch:1:slnid:1024437"/>
-							<DirectionType>outbound</DirectionType>
-							<pointsInSequence>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:3.1" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7483:0:954324"/>
-								</PointOnRoute>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:3.2" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:7000:5:9"/>
-								</PointOnRoute>
-								<PointOnRoute id="ch:1:PointInJourneyPattern:3.3" version="any">
-									<ScheduledStopPointRef ref="ch:1:sloid:1609:4:9"/>
-								</PointOnRoute>
-							</pointsInSequence>
-						</Route>
-					</routes>
 					<lines>
-						<Line id="ch:1:slnid:1024437" version="any">
+						<Line id="ch:1:slnid:1024437" version="any" responsibilitySetRef="ch:1:ResponsibilitySet:BLS-bls-33">
 							<validityConditions>
 								<ValidityConditionRef ref="ch:1:ValidityCondition:1"/>
 							</validityConditions>
@@ -344,9 +316,9 @@
 							<TransportMode>rail</TransportMode>
 							<PublicCode>RE1</PublicCode>
 						</Line>
-						<Line id="ch:1:slnid:1024426" version="any">
+						<Line id="ch:1:slnid:1024426" version="any" responsibilitySetRef="ch:1:ResponsibilitySet:BLS-bls-33">
 							<validityConditions>
-								<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:1" version="any"/>
+								<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:1"/>
 							</validityConditions>
 							<keyList>
 								<KeyValue>
@@ -361,31 +333,91 @@
 						</Line>
 					</lines>
 					<destinationDisplays>
-						<DestinationDisplay id="ch:1:DestinationDisplay:1" version="any">
+						<DestinationDisplay id="DestinationDisplay:1" version="any">
 						</DestinationDisplay>
 					</destinationDisplays>
 					<scheduledStopPoints>
 						<ScheduledStopPoint id="ch:1:sloid:7000:5:9" version="any">
+							<keyList>
+								<KeyValue>
+									<Key>DIDOK</Key>
+									<Value>8507000</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:7000:5:9</Value>
+								</KeyValue>
+							</keyList>
 							<Name lang="de">Bern</Name>
 							<StopType>railStation</StopType>
 						</ScheduledStopPoint>
 						<ScheduledStopPoint id="ch:1:sloid:7100:1:1" version="any">
+							<keyList>
+								<KeyValue>
+									<Key>DIDOK</Key>
+									<Value>8507100</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:7100:1:1</Value>
+								</KeyValue>
+							</keyList>
 							<Name lang="de">Thun</Name>
 							<StopType>railStation</StopType>
 						</ScheduledStopPoint>
 						<ScheduledStopPoint id="ch:1:sloid:7483:0:954324" version="any">
+							<keyList>
+								<KeyValue>
+									<Key>DIDOK</Key>
+									<Value>8507483</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:7483:0:954324</Value>
+								</KeyValue>
+							</keyList>
 							<Name lang="de">Spiez</Name>
 							<StopType>railStation</StopType>
 						</ScheduledStopPoint>
 						<ScheduledStopPoint id="ch:1:sloid:7290:0:930269" version="any">
+							<keyList>
+								<KeyValue>
+									<Key>DIDOK</Key>
+									<Value>8507290</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:7290:0:930269</Value>
+								</KeyValue>
+							</keyList>
 							<Name lang="de">Zweisimmen</Name>
 							<StopType>railStation</StopType>
 						</ScheduledStopPoint>
 						<ScheduledStopPoint id="ch:1:sloid:7478:0:852180" version="any">
+							<keyList>
+								<KeyValue>
+									<Key>DIDOK</Key>
+									<Value>8507290</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:7290:0:930269</Value>
+								</KeyValue>
+							</keyList>
 							<Name lang="de">Frutigen</Name>
 							<StopType>railStation</StopType>
 						</ScheduledStopPoint>
 						<ScheduledStopPoint id="ch:1:sloid:1609:4:9" version="any">
+							<keyList>
+								<KeyValue>
+									<Key>DIDOK</Key>
+									<Value>8501609</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:1609:4:9</Value>
+								</KeyValue>
+							</keyList>
 							<Name lang="de">Brig</Name>
 							<StopType>railStation</StopType>
 						</ScheduledStopPoint>
@@ -426,14 +458,16 @@
 					<journeyPatterns>					
 						<ServiceJourneyPattern id="ch:1:ServiceJourneyPattern:1" version="any">
 							<Name>Bern-Spiez</Name>
-							<RouteRef ref="Route:1"/>
+							<RouteView>
+								<LineRef ref="ch:1:slnid:1024437"/>
+							</RouteView>
 							<DirectionType>outbound</DirectionType>				
 							<pointsInSequence>
 								<StopPointInJourneyPattern id="ch:1:PointInJourneyPattern:1.1" version="any">
 								  <ScheduledStopPointRef ref="ch:1:sloid:7000:5:9"/>
 								  <ForAlighting>false</ForAlighting>
 								  <ForBoarding>true</ForBoarding>
-								  <DestinationDisplayRef ref=""/>
+								  <DestinationDisplayRef ref="DestinationDisplay:1"/>
 								</StopPointInJourneyPattern>
 								<StopPointInJourneyPattern id="ch:1:PointInJourneyPattern:1.2" version="any">
 									<ScheduledStopPointRef ref="ch:1:sloid:7100:1:1"/>
@@ -450,7 +484,9 @@
 						</ServiceJourneyPattern>
 						<ServiceJourneyPattern id="ch:1:ServiceJourneyPattern:2" version="any">
 							<Name>Spiez-Zweisimmen</Name>
-							<RouteRef ref="Route:2"/>
+							<RouteView>
+								<LineRef ref="ch:1:slnid:1024426"/>
+							</RouteView>
 							<DirectionType>outbound</DirectionType>
 							<pointsInSequence>
 								<StopPointInJourneyPattern id="ch:1:PointInJourneyPattern:2.1" version="any">
@@ -471,7 +507,9 @@
 								<ValidityConditionRef ref="ch:1:ValidityConditions:1"></ValidityConditionRef>
 							</validityConditions>
 							<Name>Spiez-Brig</Name>
-							<RouteRef ref="Route:3"/>
+							<RouteView>
+								<LineRef ref="ch:1:slnid:1024437"/>
+							</RouteView>
 							<DirectionType>outbound</DirectionType>
 							<pointsInSequence>
 								<StopPointInJourneyPattern id="ch:1:PointInJourneyPattern:3.1" version="any">
@@ -494,14 +532,21 @@
 						</ServiceJourneyPattern>
 					</journeyPatterns>
 				</ServiceFrame>
-				<TimetableFrame id="ch:1:TimetableFrame:ts3" version="any">
-					<contentValidityConditions>
+				
+				<!-- Service Calendar Frame -->
+				<ServiceCalendarFrame id="ch:1:ServiceCalendarFrame:j26" version="any">
+					<validityConditions>
 						<AvailabilityCondition id="ch:1:AvailabilityCondition:1" version="any">
-							<FromDate>2023-12-10T00:00:00</FromDate>
-							<ToDate>2024-12-14T23:59:59</ToDate>
-							<ValidDayBits>00000000000000000000000000000001110000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</ValidDayBits>
+							<FromDate>2025-12-14T00:00:00</FromDate>
+							<ToDate>2026-12-13T23:59:59</ToDate>
+							<ValidDayBits>0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000</ValidDayBits>
 						</AvailabilityCondition>
-					</contentValidityConditions>
+					</validityConditions>
+				</ServiceCalendarFrame>
+				
+				<!-- Timetable Frame -->				
+				<TimetableFrame id="ch:1:TimetableFrame:ts3" version="any">
+					
 					<vehicleJourneys>
 						<ServiceJourney id="ch:1:ServiceJourney:1" version="any" responsibilitySetRef="ch:1:ResponsibilitySet:1">
 							<validityConditions>
