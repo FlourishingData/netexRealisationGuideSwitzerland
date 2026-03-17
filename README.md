@@ -3,7 +3,7 @@
 We work here to create the next NeTEX realisation guide
 
 ## Profile 2.0 draft
-[docs/README.md](Let's start)
+[Start the document](docs/README.md)
 ## Folder structure
 * .github: scripts and workflows
 * docs: The profile
