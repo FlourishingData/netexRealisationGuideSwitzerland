@@ -1,5 +1,8 @@
-# The following changes from the NeTEx schema can occur
+# The following changes from the NeTEx schema can occur in the profile.
 Several points can be combined.
+
+We will then check, how we can use those to validate.
+We can also use this for a more formal description and perhaps generate part of the documentation as well.
 
 ## Add description
 We want to add some more details to the xsd:documentation.
