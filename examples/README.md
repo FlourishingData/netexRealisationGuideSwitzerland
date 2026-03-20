@@ -7,11 +7,12 @@ The 1.x series of the Swiss profile were CALL based.
 
 ## Basic Rail Jounrney
 
-### Example of a normal rail jounrey train Spiez - Interlaken Ost with various Quay combinations
-[link](examples/Netex_Spiez_Interlaken_Ost_ Version1.2.xml)
+### Example of a normal rail jounrney train Spiez - Interlaken Ost with various quay combinations
+[link](examples/Netex_Spiez_Interlaken_Ost_Version1.2.xml)
 
 ### Example splitting train Bern - Zweisimmen | Brig
-<Description>
+A simple splitting train without any additional information.
+Bdern - Thun - Spiez - (Zweisimmen | Brig)
 
 [Link](NeTEx-Bern-Spiez-Zweisimmen-o-Brig.xml)
 
@@ -23,10 +24,11 @@ This example models the basic splitting of a train with 3 'ServiceJourney'
 [Link](NeTEx-Bern-Spiez-Zweisimmen-o-Brig-PassingTime.xml)
 
 ### Example with international connection
-
+<description>
+  
 ## ServiceFacilities
 
-### Example of a rail jounrney with ServiceFacilities Bern | Zürich
+### Example of a rail jounrney with ServiceFacilities from Bern to Zürich
 This example contains a rail jounrey with a variety of ServiceFacilities
 
 [Link](examples/Netex_Bern_Olten_Zürich3.xml)
