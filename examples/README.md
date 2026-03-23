@@ -40,6 +40,11 @@ This is an example of a "ThroughJourney" or "Durchbindung" traversering two coun
 
 [Link](examples/Netex_Interlaken_BS_Freiburg_Breisach_Durchbindung_V.3.xml)
 
+## Shared Quay
+
+### This is and example of a rail jounrey from Niederhasli Zürich HB Zürich Stadelhofen Uster, where Zürich HB is mapped via PassengerStopAssignment to a shared platform Quay “41/42” 
+
+[Link] 
 
 
 ## More complete examples
