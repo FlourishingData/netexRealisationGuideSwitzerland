@@ -1,8 +1,8 @@
 # Swiss profile 2.0 for NeTEx 2.0
 
 - [Introduction & Roadmap](01_intro_roadmap.md)
-- Basic concepts of NeTEx
-- Guiding principles for the profile
+- [Basic concepts of NeTEx](02_basic_concepts.md)
+- [Guiding principles for the profile](03_guiding_principles.md)
 - [File structure, encoding etc](04_files.md)
 - Site model
 - Services
