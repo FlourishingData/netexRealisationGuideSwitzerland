@@ -1,4 +1,4 @@
-# Swiss profile 2.0 for NeTEx 2.0
+# Swiss profile 2.0 for NeTEx 2.0 - Realisation directive for public transport in Switzerland
 
 This document describes the realisation specifications for the data transfer between SKI and the public transport in Switzerland, based on the official NeTEx standard.
 It provides detailed clarifications and describes deviations from the official standard, with the aim of achieving consistent use throughout public transport in Switzerland.
@@ -41,5 +41,11 @@ This document describes the way in which the NeTEx standard is specifically appl
 - [Resources and references](Annex_resources_references.md)
 
 ## Impressum
+Authors: tbd
+Status: tbd
+Last change: tbd
 Contact: info.fachbus@sbb.ch
+
+## Copyright
+The document is free. Proliferation in unchanged form is explicitly supported.
 
