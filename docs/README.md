@@ -13,6 +13,7 @@
   - ServiceFacilities
   - JourneyParts
   - Transfers / transfer times
+  - [Journeys passing midnight](uc_midnight_passing.md)
 - Mapping tables
   - Modes
   - ServiceAttribute 
