@@ -3,7 +3,7 @@
 - [Introduction & Roadmap](01_intro_roadmap.md)
 - Basic concepts of NeTEx
 - Guiding principles for the profile
-- File structure, encoding etc
+- [File structure, encoding etc](04_files.md)
 - Site model
 - Services
 - Timetables
