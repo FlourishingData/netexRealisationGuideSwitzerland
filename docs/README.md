@@ -34,6 +34,7 @@ This document describes the way in which the NeTEx standard is specifically appl
   - JourneyParts
   - Transfers / transfer times
   - [Journeys passing midnight](uc_midnight_passing.md)
+  - Modes  and the ["KI Branchenstandard"](https://www.oev-info.ch/de/branchenstandard/branchenstandard-kundeninformation-bs-ki/branchenstandard-kundeninformation-bs-ki)
 - Mapping tables
   - Modes
   - ServiceAttribute 
