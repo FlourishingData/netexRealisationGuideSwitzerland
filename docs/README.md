@@ -4,10 +4,10 @@
 - Basic concepts of NeTEx
 - Guiding principles for the profile
 - File structure, encoding etc
-- Physical model
+- Site model
 - Services
 - Timetables
-- CommonElements
+- Common elements
 - Special use cases
   - Joining / Splitting und "Durchbindung"
   - ServiceFacilities
@@ -19,6 +19,6 @@
 - Other profiles
 - Resources and references
 
-
+## Impressum
 Contact: info.fachbus@sbb.ch
 
