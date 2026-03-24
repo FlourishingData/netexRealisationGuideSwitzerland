@@ -13,6 +13,22 @@ The document specifically describes:
 •	how data is to be interpreted
 
 
+# How to use the document
+This document shows all elements of the norm that are deemed necessary for data exchange for public transport timetables in Switzerland. Each description is based on the text in the standard. However, we tried to enrich the information to simplify implementation. We use fol-lowing sections:
+•	Business Requirements: Telling the business story of the element and how it is used in public transportation in Switzerland
+•	Structure: Contains the detailed physical structure of the element with examples and more information about the business level 
+•	Example: A detailed XML example
+
+The tables in the structure section are based on the original XSD schema documentation and/or descriptions from the standard (whenever the XSD documentation is insufficient), but also adapted to the needs of public transport in Switzerland. In some cases the cardinality may change and fields may become mandatory or optional. An additional row is introduced for the specification of such business requirements. Elements that are not used/important, are not shown.
+
+Additionally we use the following information in the business requirement row (following each elment description):
+•	NOT TO BE USED: This element or field is not used in Switzerland. When the data is present, the file will be rejected during import. This element is not ignored, but rejected.
+•	IGNORED AT IMPORT: This element or field may be provided, but it will not be loaded and removed from the data.
+
+The business requirement row also specifies value transformations and mapping tables in some cases. Only the provided functions and values are to be used, no deviations are al-lowed.
+
+In some cases there are references to the HRDF format currently used in the data exchange of timetables in Switzerland. This is also to help implementers to understand how to work with it.
+
 # Roadmap
 
 tbd
