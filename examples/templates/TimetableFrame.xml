@@ -1,0 +1,20 @@
+<TimetableFrame id="ch:1:TimetableFrame:j23" version="any">
+<vehicleJourneys>
+ <!-- content of vehicleJourneys -- >
+</vehicleJourneys>
+<trainNumbers>
+ <!-- content of trainNumbes -- >
+</trainNumbers>
+<serviceFacilitySets>
+ <!-- content of serviceFacilitySets -- >
+</serviceFacilitySets>
+<typesOfService>
+ <!-- content of TypesOfService -- >
+</typesOfService>
+<journeyMeetings>
+ <!-- content of JourneyMeetings -- >
+</journeyMeetings>
+<interchangeRules>
+ <!-- content of interchangeRules -- >
+</interchangeRules>
+</TimetableFrame>
