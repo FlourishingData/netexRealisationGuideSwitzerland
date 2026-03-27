@@ -13,7 +13,7 @@ First thoughts based on the idea that XML examples could be used as a scaffold f
 - XML examples/templates can be copy-pasted by users and the comments help understanding and adhering to the profile.
 
 **Example:** 
-- XML example/template for StopPlace - https://https://github.com/openTdataCH/netexRealisationGuideSwitzerland/tree/main/experimental/specifying_profile_in_xml_example/StopPlace.xml
+- XML example/template for StopPlace - https://github.com/openTdataCH/netexRealisationGuideSwitzerland/tree/main/experimental/specifying_profile_in_xml_example/StopPlace.xml
 - The corresponding documentation table is shown below
 
 ### StopPlace
@@ -44,38 +44,36 @@ First thoughts based on the idea that XML examples could be used as a scaffold f
 
 ## Comments
 
-Note the keywords in the XML example/template: *TEMPLATE: Note: Usage:* 
+Note the keywords in the XML example/template: *TEMPLATE:, Note:, Usage:* 
 
-In the table, the columns ***Element, Type, Description*** would be copies from the NeTEx xsd.
-**Column *Sub***: *<<* indicates that the element is described in a table of its own; *>>* indicates that the element is contained in the element from the previous row.
-**Column *Usage***: *mandatory, expected, optional* - perhaps more... (see below)?
-**Column *Note***: profile-specific text complementing ***Description*** 
-**Column *Card***: Cardinality from NeTEx xsd updated by value in ***Usage***
+- In the table, the columns ***Element, Type, Description*** would be copies from the NeTEx xsd.
+- **Column *Sub***: *<<* indicates that the element is described in a table of its own; *>>* indicates that the element is contained in the element from the previous row.
+- **Column *Usage***: *mandatory, expected, optional* - perhaps more... (see below)?
+- **Column *Note***: profile-specific text complementing ***Description*** 
+- **Column *Card***: Cardinality from NeTEx xsd updated by value in ***Usage***
 
 
 ## What kind of changes can be specified?
 
 The document https://github.com/openTdataCH/netexRealisationGuideSwitzerland/blob/main/mgmt/Changes_in_profile.md describes the changes we might want to apply to the standard NeTEx schema in order to obtain the profile. 
 
-Here the thoughts how and to what extent this might be achieved for each type of change. 
-
-I just treated elements so far, not attributes.
+Here the thoughts how and to what extent this might be achieved for each type of change. I just treated elements so far, not attributes.
 
 ### Add description
 
-<!-- Note: -->
+`<!-- Note: -->`
 
 ### Change cardinality
 
-<!-- Usage: --> 
+`<!-- Usage: -->`
 - mandatory
 - optional
 
 Perhaps additional categories? 
 - expected
 - deprecated
-- ignored - though that could be taken as the default if the element doesn't show up in the documentation; the xsd for the profile would contain the element
-- forbidden - would we show that in the documentation? - the xsd would not contain the element
+- ignored - this could be taken as the default if the element doesn't show up in the documentation; the xsd for the profile would contain the element
+- forbidden - would we want to show that in the documentation? The xsd would not contain the element.
 
 
 ### Restricted choice
@@ -86,29 +84,29 @@ If only one choice is allowed - simple: the template XML shows only the allowed 
 
 If multiple choices are allowed - the template XML could be extended with additonal variants (thereby violating the xsd) and marking all elements affected by the choices.
 
-<!-- CHOICE: a -->
-<!-- CHOICE: a -->
-<!-- CHOICE: b -->
-<!-- CHOICE: b -->
+`<!-- CHOICE: a -->`
+`<!-- CHOICE: a -->`
+`<!-- CHOICE: b -->`
+`<!-- CHOICE: b -->`
 
 
 ### Disallow element / attribute
 
-<!-- Note: Data containing the element will be rejected. -->
-<!-- Usage: forbidden -->
+`<!-- Note: Data containing the element will be rejected. -->`
+`<!-- Usage: forbidden -->`
 
 See section **Cardinality** above.
 
 ### Mark an element / attribute as to be ignored during importation.
 
-<!-- Note: Importer will ignore the element. -->
-<!-- Usage: ignored -->
+`<!-- Note: Importer will ignore the element. -->`
+`<!-- Usage: ignored -->`
 
 See section **Cardinality** above. Or slightly different treatment?
 
 ### Restrict an enumeration in a given element
 
-Either in <!-- Note: --> or <!-- AllowedEnums: -->
+Either in `<!-- Note: --> or <!-- AllowedEnums: -->`
 
 In any case, the list of enums should appear in *Note* column of the documentation table. 
 
@@ -125,13 +123,13 @@ e.g. only values between-5 and 5.
 
 e.g. no `QuayRef` in quays only `Quay`
 
-Either just as a <!-- Note: -->
-Or, theoretically, one could also have <!-- AllowedElements: Quay --> and some additional logic. 
+Either just as a `<!-- Note: -->`
+Or, theoretically, one could also have  `<!-- AllowedElements: Quay -->`  and some additional logic. 
 
 
 ### Extension in extension point
 
-Extensions are explicit in the template XML, can be marked as mandatory by <!-- Usage: mandatory -->.
+Extensions are explicit in the template XML, can be marked as mandatory by `<!-- Usage: mandatory -->`.
 
 This may also be a full substructure
 
@@ -140,6 +138,5 @@ This may also be a full substructure
 
 Restrictions on elements that are inherited or part of a subgroup is straightforward since they appear explicitely in the template XML and can be marked as necessary. 
 
-<!-- Usage: --> , see section **ChangeCardinality
-
+`<!-- Usage: -->`, see section **ChangeCardinality***
 
