@@ -42,7 +42,10 @@ This is an example of a "ThroughJourney" or "Durchbindung" traversering two coun
 
 ## Shared Quay
 
-### This is and example of a rail jounrey from Niederhasli Zürich HB Zürich Stadelhofen Uster, where Zürich HB is mapped via PassengerStopAssignment to a shared platform Quay “41/42” 
+### This is and example of a rail jounrey from Niederhasli Zürich HB Zürich Stadelhofen Uster, where Zürich HB is mapped via PassengerStopAssignment to a shared platform Quay “41/42”
+
+This example uses shared quays 41/42, stop‑specific NoticeAssignments, and passingTimes in the Timetable Frame. Also notice that Calls and Order are no longer being used. It separates operational vs. passenger-facing platforms and enables precise notice placement of the platforms via Start/EndPointInPatternRef in the noticeAssignments. Other specific differences from the Swiss Netex 2.0 is the usage of Order and Calls are no longer being used. 
+ 
 
 [Link] 
 
