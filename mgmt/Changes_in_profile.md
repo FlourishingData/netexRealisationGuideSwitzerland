@@ -12,7 +12,7 @@ This is not really relevant for  the validation. It helps understanding.
 ## Change cardinality
 Usually optional ->  mandatory.
 
-E.g. `Operator
+E.g. `OperatorRef is now mandatory.
 
 Needed parameters:
 - XPath
