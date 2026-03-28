@@ -84,29 +84,33 @@ If only one choice is allowed - simple: the template XML shows only the allowed 
 
 If multiple choices are allowed - the template XML could be extended with additonal variants (thereby violating the xsd) and marking all elements affected by the choices.
 
-`<!-- CHOICE: a -->`
-`<!-- CHOICE: a -->`
-`<!-- CHOICE: b -->`
-`<!-- CHOICE: b -->`
+```
+<!-- CHOICE: a -->
+<!-- CHOICE: a -->
+<!-- CHOICE: b -->
+<!-- CHOICE: b -->
+```
 
 
 ### Disallow element / attribute
 
-`<!-- Note: Data containing the element will be rejected. -->`
-`<!-- Usage: forbidden -->`
+```<!-- Note: Data containing the element will be rejected. -->
+<!-- Usage: forbidden -->
+```
 
 See section **Cardinality** above.
 
 ### Mark an element / attribute as to be ignored during importation.
 
-`<!-- Note: Importer will ignore the element. -->`
-`<!-- Usage: ignored -->`
+```<!-- Note: Importer will ignore the element. -->
+<!-- Usage: ignored -->
+```
 
 See section **Cardinality** above. Or slightly different treatment?
 
 ### Restrict an enumeration in a given element
 
-Either in `<!-- Note: --> or <!-- AllowedEnums: -->`
+Either in `<!-- Note: -->` or `<!-- AllowedEnums: -->`
 
 In any case, the list of enums should appear in *Note* column of the documentation table. 
 
@@ -123,8 +127,8 @@ e.g. only values between-5 and 5.
 
 e.g. no `QuayRef` in quays only `Quay`
 
-Either just as a `<!-- Note: -->`
-Or, theoretically, one could also have  `<!-- AllowedElements: Quay -->`  and some additional logic. 
+- Either just as a `<!-- Note: -->`
+- Or, theoretically, one could also have  `<!-- AllowedElements: Quay -->`  and some additional logic. 
 
 
 ### Extension in extension point
@@ -138,5 +142,5 @@ This may also be a full substructure
 
 Restrictions on elements that are inherited or part of a subgroup is straightforward since they appear explicitely in the template XML and can be marked as necessary. 
 
-`<!-- Usage: -->`, see section **ChangeCardinality***
+`<!-- Usage: -->`, see section ***ChangeCardinality***
 
