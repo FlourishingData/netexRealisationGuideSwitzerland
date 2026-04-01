@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.netex.org.uk/netex file:///C:/Users/ue71603/MG_Daten/github/NeTEx1/xsd/NeTEx_publication.xsd">
+	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
+	<ParticipantRef>SKI-Templates</ParticipantRef>
+	<dataObjects>
+		<CompositeFrame id="ch:1:CompositeFrame" version="any">
+			<frames>
+				<ResourceFrame id="ch:1:ResourceFrame" version="any">
+					<organisations>
+				<!-- ch-start: Example starts here -->
+						<Operator id="ch:1:sboid:100015" version="any">
+							<!-- ch-usage: mandatory -->
+							<keyList>
+								<KeyValue>
+									<!-- ch-usage: mandatory -->
+									<Key>SBOID</Key>
+									<Value>ch:1:sboid:100015</Value>
+								</KeyValue>
+							</keyList>
+							<PrivateCode>ch:1:sboid:101105</PrivateCode>
+							<Name lang="de"><!-- ch-mandatory-->BLS AG</Name>
+							<ShortName lang="de"><!-- ch-mandatory -->BLS</ShortName>
+						</Operator>
+				<!-- ch-stop: example stops here -->
+					</organisations>
+				</ResourceFrame>
+			</frames>
+		</CompositeFrame>
+	</dataObjects>
+</PublicationDelivery>
