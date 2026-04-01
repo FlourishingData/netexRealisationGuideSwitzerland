@@ -11,7 +11,7 @@
 						<!-- ch-note: currently only PassengerStopAssigments allowed -->
 						<!-- ch-usage: mandatory -->
 						<PassengerStopAssignment id="generated" version="1">
-							<!-- ch-referenced -->
+							<!-- ch-referenced: PassengerStopAssignment1 -->
 						</PassengerStopAssignment>
 					</stopAssignments>
 				</ServiceFrame>
