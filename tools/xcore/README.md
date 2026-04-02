@@ -1,4 +1,6 @@
-# Generation of HTML Documentation from XSD
+# Xcore - Generate documentation tables from XSD
+
+Xcore is a script/application implemented in `xquery`.
 
 The `xquery` code to generate the `html` Documentation of a XSD is copied from here:
 https://github.com/VDVde/OJP/tree/develop/docs

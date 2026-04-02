@@ -9,8 +9,7 @@ set -e
 
 usage() {
   echo "Usage: $(basename "$0") <path-to-custom-file> <path-to-xsd>"
-  echo "Example: $(basename "$0") stop_place_custom.xml ../StopPlace.xsd"
-  echo "Example: $(basename "$0") netex_custom.xml ../../xsd/xsd/NeTEx_publication.xsd"
+  echo "Example: $(basename "$0") custom.xml ../../xsd/xsd/NeTEx_publication.xsd"
 }
 
 # Print usage if no arguments or if -h/--help is requested
@@ -26,8 +25,8 @@ if [ ! -f "$CUSTOM_XML" ]; then
 fi
 
 XSD_URI=$2
-GENERATOR_DIR="xcore"
-GENERATED_DIR="generated"
+GENERATOR_DIR="xquery"
+GENERATED_DIR="../generated/xcore"
 BASEX_JAR="/tmp/basex.jar"
 
 if [ ! -e ${BASEX_JAR} ]; then
