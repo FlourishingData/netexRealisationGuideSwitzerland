@@ -11,14 +11,6 @@ Usage (non-positional arguments):
         -i INPUT_FOLDER \
         -o OUTPUT_FILE \
         [-v]
-
-Example:
-    python template2schematron.py \
-        --template mytemplate.xml \
-        --xsd schema.xsd \
-        --input-folder fragments \
-        --output out.sch \
-        --verbose
 """
 
 import sys
@@ -255,7 +247,6 @@ class SchematronBuilder:
         self.pattern = OUT_SubElement(self.schema, f'{SCH_PREFIX}:pattern', attrib={'id': 'p1'})
 
         # Maintain a mapping from context XPath to a single rule element (so we group asserts/reports)
-        # Key is the context string (after _ns_context transform)
         self._rules_by_context = {}
 
         self.processed_files = set()
@@ -275,32 +266,32 @@ class SchematronBuilder:
         return f'netex:{element_name}'
 
     def _ns_context(self, context_xpath):
-        """Return context with '.' preserved; otherwise keep as a simple element name prefixed."""
+        """
+        Normalize rule context:
+        - Keep '.' as-is.
+        - If the context already starts with '//' or '.', return as-is.
+        - Otherwise, prefix '//' (the system expects double-slash absolute contexts).
+        """
         if not context_xpath or context_xpath == '.':
             return '.'
-        # If context is an XPath expression (contains punctuation or '/'), leave it unchanged.
-        # For simple element names, prefix with netex:
-        if re.search(r'[\.\[\]/@:\(\)]', context_xpath):
-            # complex xpath — return unchanged (caller should already craft correct xpath)
-            return context_xpath
-        return self._ns_name(context_xpath)
+        # We assume callers pass fully-built element paths like 'netex:PublicationDelivery/netex:frames/...'
+        ctx = context_xpath
+        if ctx.startswith('//') or ctx.startswith('.'):
+            return ctx
+        return f'//{ctx}'
+
 
     def _get_or_create_rule(self, context_xpath, note_text=None):
         """
         Return an existing rule element for the given (transformed) context, or create one.
-        Attach the comment note_text only when creating the rule (so it's not duplicated).
+        Attach the comment note_text only when creating the rule (so it's not duplicated too much).
         """
         ctx = self._ns_context(context_xpath)
         if ctx in self._rules_by_context:
             rule = self._rules_by_context[ctx]
-            # Add comment only if provided and not already present as a comment node (simple heuristic)
             if note_text:
-                # We add comment even if rule existed — but to avoid duplicates we check existing comment texts
-                existing_comments = [c.text.strip() for c in rule if isinstance(c.tag, str) is False] if False else []
-                # Simpler: just append; duplicate comments are not harmful
                 self.add_comment_to_rule(rule, note_text)
             return rule
-        # create new rule
         rule = OUT_SubElement(self.pattern, f'{SCH_PREFIX}:rule', attrib={'context': ctx})
         if note_text:
             self.add_comment_to_rule(rule, note_text)
@@ -312,63 +303,63 @@ class SchematronBuilder:
         """
         Add either an assert or a report to the rule for context_xpath.
         kind: 'assert' (default) or 'report'
-        test_expr: XPath expression string for the test attribute (do NOT escape > here; tostring will handle)
+        test_expr: XPath expression string for the test attribute
         message: text node for the assert/report
         """
         rule = self._get_or_create_rule(context_xpath, note_text=note_text)
         elem_name = f'{SCH_PREFIX}:{kind}'
         OUT_SubElement(rule, elem_name, attrib={'test': test_expr}).text = message
 
-    # The following helper methods build the test expressions and call add_assert_or_report
-
-    def add_rule_presence(self, context_xpath, element_name, note_text=None):
-        ctx = context_xpath
+    # Helper: absolute child presence checks (no .//)
+    def add_rule_presence(self, parent_context_xpath, element_name, note_text=None):
+        if not parent_context_xpath:
+            return  # no parent (top-level), skip presence rule
         ns_elem = self._ns_name(element_name)
-        # We want to test that there is at least one descendant element with that name:
-        test = f'count(.//{ns_elem}) > 0'
-        self.add_assert_or_report(ctx, test, f'{element_name} must be present', kind='assert', note_text=note_text)
+        test = f'count({ns_elem}) > 0'
+        self.add_assert_or_report(parent_context_xpath, test, f'{element_name} must be present', kind='assert', note_text=note_text)
 
-    def add_rule_absence(self, context_xpath, element_name, note_text=None):
-        ctx = context_xpath
+    def add_rule_absence(self, parent_context_xpath, element_name, note_text=None):
+        if not parent_context_xpath:
+            return  # no parent (top-level), skip absence rule
         ns_elem = self._ns_name(element_name)
-        test = f'count(.//{ns_elem}) = 0'
-        self.add_assert_or_report(ctx, test, f'{element_name} must NOT be present', kind='assert', note_text=note_text)
+        test = f'count({ns_elem}) = 0'
+        self.add_assert_or_report(parent_context_xpath, test, f'{element_name} must NOT be present', kind='assert', note_text=note_text)
 
     def add_rule_allowed_enums(self, context_xpath, element_name, allowed_list, note_text=None):
         if not allowed_list:
             return
-        ctx = context_xpath
-        ns_elem = self._ns_name(element_name)
-        # test: every value must be one of these; for element text value equality we check . (or use string() depending)
-        # We will test that the element's string value equals one of allowed values; if multiple elements exist, we assert that at least one passes,
-        # but to be close to original semantics we'll assert that each such element's value is one of the list. Simpler: require that the element's value matches one of list:
-        ors = ' or '.join([f"{ns_elem} = '{val}'" for val in allowed_list])
-        test = ors
-        self.add_assert_or_report(ctx, test, f'{element_name} must be one of: {" ".join(allowed_list)}', kind='assert', note_text=note_text)
+        # If element_name == '.', test the value of the current context element.
+        if element_name == '.' or not element_name:
+            ors = ' or '.join([f". = '{val}'" for val in allowed_list])
+            test = f'({ors})'
+            self.add_assert_or_report(context_xpath, test, f'Value must be one of: {" ".join(allowed_list)}', kind='assert', note_text=note_text)
+        else:
+            ns_elem = self._ns_name(element_name)
+            ors = ' or '.join([f"{ns_elem} = '{val}'" for val in allowed_list])
+            test = f'({ors})'
+            self.add_assert_or_report(context_xpath, test, f'{element_name} must be one of: {" ".join(allowed_list)}', kind='assert', note_text=note_text)
 
-    def add_rule_deprecated(self, context_xpath, element_name, note_text=None):
-        ctx = context_xpath
+    def add_rule_deprecated(self, parent_context_xpath, element_name, note_text=None):
+        if not parent_context_xpath:
+            return
         base_note = f'DEPRECATED: {element_name} is deprecated'
         full_note = f'{base_note}; {note_text}' if note_text else base_note
-        # keep a comment on the rule; and add an assert that count(...) = 0 (same as before)
         ns_elem = self._ns_name(element_name)
-        test = f'count(.//{ns_elem}) = 0'
-        # attach the comment via _get_or_create_rule (note_text passed)
-        self.add_assert_or_report(ctx, test, f'{element_name} is deprecated and should not be used', kind='assert', note_text=full_note)
+        test = f'count({ns_elem}) = 0'
+        self.add_assert_or_report(parent_context_xpath, test, f'{element_name} is deprecated and should not be used', kind='assert', note_text=full_note)
 
     def add_rule_class_id_must_exist(self, context_xpath, element_name, id_value, note_text=None):
         """
-        Previously this added an assert. Per request, produce a report instead.
+        Produce a report that an element with the given id must exist somewhere in the document.
+        Attach at the element's own absolute context (if available).
         """
         if not id_value:
             return
-        ctx = context_xpath
         base_note = f'{element_name} with id="{id_value}" must exist somewhere in the document'
         full_note = f'{base_note}; {note_text}' if note_text else base_note
         ns_elem = self._ns_name(element_name)
         test_expr = f"count(//{ns_elem}[@id='{id_value}']) > 0"
-        # Add a report (not an assert)
-        self.add_assert_or_report(ctx, test_expr, f'An element {element_name} with id=\"{id_value}\" must exist', kind='report', note_text=full_note)
+        self.add_assert_or_report(context_xpath, test_expr, f'An element {element_name} with id="{id_value}" must exist', kind='report', note_text=full_note)
 
     def tostring(self):
         # Pretty-print before serializing
@@ -384,6 +375,7 @@ class SchematronBuilder:
         # ensure XML declaration
         return '<?xml version="1.0" encoding="UTF-8"?>\n' + xml
 
+
 def find_files_for_candidate(input_folder, candidate_filename):
     matches = []
     for root, dirs, files in os.walk(input_folder):
@@ -392,7 +384,25 @@ def find_files_for_candidate(input_folder, candidate_filename):
     return matches
 
 
-def _process_fragment_root(rootfrag, parent_tag_local, builder, input_folder):
+# Helpers for absolute namespaced paths
+def ns_join(builder: SchematronBuilder, parent_path: str, local: str) -> str:
+    """Join a local element name onto a namespaced absolute path."""
+    ns = builder._ns_name(local)
+    return ns if not parent_path else f'{parent_path}/{ns}'
+
+
+def _process_fragment_root(rootfrag, builder, base_context_path, parent_context_path, element_local_name, input_folder):
+    """
+    Process a referenced fragment for element `element_local_name`.
+
+    - base_context_path: absolute path to the element itself (e.g., .../netex:Operator)
+    - parent_context_path: absolute path to the element's parent (e.g., .../netex:organisations)
+    - element_local_name: local name (e.g., Operator)
+
+    Top-level comments in the fragment are applied to the element (or its parent where relevant).
+    The fragment's top-level element that matches element_local_name is treated as the SAME context
+    (no extra /Operator appended), to avoid .../Operator/Operator.
+    """
     nodes = iter_children(rootfrag)
     for node in nodes:
         if is_comment(node):
@@ -401,7 +411,7 @@ def _process_fragment_root(rootfrag, parent_tag_local, builder, input_folder):
             ctext = (node.text or '').strip()
             warn_on_unknown_ch_commands(
                 ctext,
-                location_desc=f"fragment under parent '{parent_tag_local or 'ROOT'}'"
+                location_desc=f"fragment for '{element_local_name}'"
             )
             parsed = parse_usage_and_notes_from_comments(ctext)
             notes = parsed['notes']
@@ -413,24 +423,19 @@ def _process_fragment_root(rootfrag, parent_tag_local, builder, input_folder):
 
             note_text = '; '.join(notes) if notes else None
 
-            context = parent_tag_local if parent_tag_local else '.'
-            elem_name = parent_tag_local or '.'
-
+            # Apply usage/deprecation to the parent context about the element itself
             if any(u == 'forbidden' for u in usages):
-                builder.add_rule_absence(context, elem_name, note_text=note_text)
+                builder.add_rule_absence(parent_context_path, element_local_name, note_text=note_text)
             if any(u == 'mandatory' for u in usages):
-                builder.add_rule_presence(context, elem_name, note_text=note_text)
+                builder.add_rule_presence(parent_context_path, element_local_name, note_text=note_text)
             if deprecated:
-                builder.add_rule_deprecated(context, elem_name, note_text=note_text)
+                builder.add_rule_deprecated(parent_context_path, element_local_name, note_text=note_text)
+            # Allowed enums at the element itself (value check at element context)
             if allowed_enums:
-                builder.add_rule_allowed_enums(
-                    context,
-                    elem_name,
-                    allowed_enums,
-                    note_text=note_text
-                )
-            # class-id-must-exist not handled here (no attributes context)
+                builder.add_rule_allowed_enums(base_context_path, '.', allowed_enums, note_text=note_text)
+            # class-id-must-exist at fragment top-level: we don't have the id value here; skip
 
+            # referenced_names at fragment top-level: rare; if provided, treat as further inclusions under element context
             if referenced_names:
                 tokens = []
                 if all(t == '__DEFAULT__' for t in referenced_names):
@@ -444,12 +449,9 @@ def _process_fragment_root(rootfrag, parent_tag_local, builder, input_folder):
                 for token in tokens:
                     candidates = []
                     if token == '__DEFAULT__':
-                        if parent_tag_local:
-                            candidates.append(f'{parent_tag_local}.xml')
+                        candidates.append(f'{element_local_name}.xml')
                     else:
-                        candidates.append(
-                            token if token.lower().endswith('.xml') else f'{token}.xml'
-                        )
+                        candidates.append(token if token.lower().endswith('.xml') else f'{token}.xml')
                     for candidate in candidates:
                         for found_path in find_files_for_candidate(input_folder, candidate):
                             ab = os.path.abspath(found_path)
@@ -461,10 +463,7 @@ def _process_fragment_root(rootfrag, parent_tag_local, builder, input_folder):
                             try:
                                 txt = read_file(found_path)
                             except Exception as e:
-                                print(
-                                    f'Warning: cannot read referenced file {found_path}: {e}',
-                                    file=sys.stderr
-                                )
+                                print(f'Warning: cannot read referenced file {found_path}: {e}', file=sys.stderr)
                                 continue
                             regions = extract_regions(txt)
                             if not regions:
@@ -474,31 +473,55 @@ def _process_fragment_root(rootfrag, parent_tag_local, builder, input_folder):
                                 try:
                                     subfrag = parse_xml_fragment(wrapped)
                                 except Exception as e:
-                                    print(
-                                        f'Warning: parse error in referenced file {found_path}: {e}',
-                                        file=sys.stderr
-                                    )
+                                    print(f'Warning: parse error in referenced file {found_path}: {e}', file=sys.stderr)
                                     continue
-                                _process_fragment_root(subfrag, parent_tag_local, builder, input_folder)
+                                # Recurse: still under same element context for its top-level
+                                _process_fragment_root(subfrag, builder, base_context_path, parent_context_path, element_local_name, input_folder)
         else:
-            # element node - call element processing
-            context = parent_tag_local if parent_tag_local else '.'
-            process_element_tree(
-                node,
-                builder,
-                context_xpath=context,
-                input_folder=input_folder,
-                ancestor_forbidden=False
-            )
+            # Element node within the fragment
+            node_local = local_name(node.tag if HAS_LXML else node.tag)
+            if node_local == element_local_name:
+                # Treat this element as the SAME context as the referencing element
+                process_element_tree(
+                    node,
+                    builder,
+                    parent_context_path=parent_context_path,
+                    input_folder=input_folder,
+                    is_ref_root=True,
+                    current_context_path=base_context_path
+                )
+            else:
+                # If fragment provides children directly (without wrapping <element_local_name>),
+                # process them as children of the element context.
+                process_element_tree(
+                    node,
+                    builder,
+                    base_context_path,
+                    input_folder=input_folder,
+                    is_ref_root=False
+                )
 
 
-def process_element_tree(elem, builder, context_xpath='.', input_folder='.', ancestor_forbidden=False):
-    if ancestor_forbidden:
-        return
+def process_element_tree(elem, builder, parent_context_path='', input_folder='.', is_ref_root=False, current_context_path=None):
+    """
+    - parent_context_path: absolute path string of the parent element (without leading '//').
+    - is_ref_root + current_context_path: when True, 'elem' corresponds to an already-established
+      absolute element path (current_context_path). Do not append the element name again.
+    """
     tag_local = local_name(elem.tag if HAS_LXML else elem.tag)
     if VERBOSE:
-        print("Processing element:", tag_local, "context:", context_xpath)
+        print("Processing element:", tag_local, "parent context:", parent_context_path, "is_ref_root:", is_ref_root)
 
+    # Determine this element's absolute path (no leading '//' internally)
+    if is_ref_root and current_context_path:
+        elem_abs_path = current_context_path              # e.g., netex:.../netex:Operator
+        parent_abs_path = parent_context_path             # e.g., netex:.../netex:organisations
+    else:
+        elem_abs_path = ns_join(builder, parent_context_path, tag_local)
+        parent_abs_path = parent_context_path
+
+
+    # Partition direct children
     nodes = iter_children(elem)
     child_elements = []
     child_comments = []
@@ -508,6 +531,7 @@ def process_element_tree(elem, builder, context_xpath='.', input_folder='.', anc
         else:
             child_elements.append(node)
 
+    # Handle comments that annotate THIS element
     for comment_node in child_comments:
         ctext = (comment_node.text or '').strip()
         warn_on_unknown_ch_commands(ctext, location_desc=f"element '{tag_local}'")
@@ -521,30 +545,34 @@ def process_element_tree(elem, builder, context_xpath='.', input_folder='.', anc
 
         note_text = '; '.join(notes) if notes else None
 
+        # Apply usage/deprecation about this element at its parent's context (direct child checks)
         if any(u == 'forbidden' for u in usages):
-            builder.add_rule_absence(context_xpath, tag_local, note_text=note_text)
+            builder.add_rule_absence(parent_abs_path, tag_local, note_text=note_text)
         if any(u == 'mandatory' for u in usages):
-            builder.add_rule_presence(context_xpath, tag_local, note_text=note_text)
+            builder.add_rule_presence(parent_abs_path, tag_local, note_text=note_text)
         if deprecated:
-            builder.add_rule_deprecated(context_xpath, tag_local, note_text=note_text)
+            builder.add_rule_deprecated(parent_abs_path, tag_local, note_text=note_text)
+
+        # Allowed enums on this element's own value: attach at element's absolute path, test '.'
         if allowed_enums:
             builder.add_rule_allowed_enums(
-                context_xpath,
-                tag_local,
+                elem_abs_path,
+                '.',
                 allowed_enums,
                 note_text=note_text
             )
 
+        # class-id-must-exist: attach at element's absolute path, using the element's own @id
         if class_id_must_exist:
-            # Use the element's @id value
             id_value = elem.get('id') if not HAS_LXML else elem.get('id')
             builder.add_rule_class_id_must_exist(
-                context_xpath,
+                elem_abs_path,
                 tag_local,
                 id_value,
                 note_text=note_text
             )
 
+        # Handle referenced fragments for this element
         if referenced_names:
             tokens = []
             if all(t == '__DEFAULT__' for t in referenced_names):
@@ -592,17 +620,32 @@ def process_element_tree(elem, builder, context_xpath='.', input_folder='.', anc
                                     file=sys.stderr
                                 )
                                 continue
-                            _process_fragment_root(rootfrag, tag_local, builder, input_folder)
+                            # Base context is the element itself; parent context is its parent
+                            _process_fragment_root(
+                                rootfrag,
+                                builder,
+                                base_context_path=elem_abs_path,
+                                parent_context_path=parent_abs_path,
+                                element_local_name=tag_local,
+                                input_folder=input_folder
+                            )
 
+    # Recurse into child elements; they will append to elem_abs_path
     for child in child_elements:
-        # context for children is the current element name
         process_element_tree(
             child,
             builder,
-            context_xpath=tag_local,
+            parent_context_path=elem_abs_path,
             input_folder=input_folder,
-            ancestor_forbidden=False
+            is_ref_root=False
         )
+
+
+def _parent_of_abs_path(abs_path: str) -> str:
+    """Return the parent path of an absolute namespaced path, or '' if none."""
+    if not abs_path or '/' not in abs_path:
+        return ''
+    return abs_path.rsplit('/', 1)[0]
 
 
 def parse_args(argv):
@@ -677,82 +720,29 @@ def main(argv):
             print(f'Error parsing extracted region: {e}', file=sys.stderr)
             continue
 
+        # Always start traversal from PublicationDelivery downwards
         for node in iter_children(root):
             if is_comment(node):
+                # We ignore top-level comments for schematron generation in this absolute-path mode
                 ctext = (node.text or '').strip()
                 warn_on_unknown_ch_commands(ctext, location_desc="top-level template region")
-                parsed = parse_usage_and_notes_from_comments(ctext)
-                notes = parsed['notes']
-                usages = parsed['usages']
-                referenced_names = parsed['referenced_names']
-                allowed_enums = parsed['allowed_enums']
-                deprecated = parsed['deprecated']
-                class_id_must_exist = parsed['class_id_must_exist']
-
-                note_text = '; '.join(notes) if notes else None
-
-                if any(u == 'forbidden' for u in usages):
-                    builder.add_rule_absence('.', '.', note_text=note_text)
-                if any(u == 'mandatory' for u in usages):
-                    builder.add_rule_presence('.', '.', note_text=note_text)
-                if deprecated:
-                    builder.add_rule_deprecated('.', '.', note_text=note_text)
-                # class-id-must-exist does not make sense at top-level without an element
-
-                if referenced_names:
-                    tokens = []
-                    if all(t == '__DEFAULT__' for t in referenced_names):
-                        tokens = ['__DEFAULT__']
-                    else:
-                        for t in referenced_names:
-                            if t != '__DEFAULT__':
-                                tokens.append(t)
-                        if '__DEFAULT__' in referenced_names:
-                            tokens.append('__DEFAULT__')
-                    for token in tokens:
-                        if token == '__DEFAULT__':
-                            continue
-                        candidates = [
-                            token if token.lower().endswith('.xml') else f'{token}.xml'
-                        ]
-                        for candidate in candidates:
-                            for found_path in find_files_for_candidate(input_folder, candidate):
-                                ab = os.path.abspath(found_path)
-                                if ab in builder.processed_files:
-                                    continue
-                                builder.processed_files.add(ab)
-                                if VERBOSE:
-                                    print(f"Processing referenced file: {ab}")
-                                try:
-                                    txt = read_file(found_path)
-                                except Exception as e:
-                                    print(
-                                        f'Warning: cannot read referenced file {found_path}: {e}',
-                                        file=sys.stderr
-                                    )
-                                    continue
-                                subregions = extract_regions(txt)
-                                if not subregions:
-                                    subregions = [txt]
-                                for r in subregions:
-                                    wrapped_r = wrap_fragment(r)
-                                    try:
-                                        rootfrag = parse_xml_fragment(wrapped_r)
-                                    except Exception as e:
-                                        print(
-                                            f'Warning: parse error in referenced file {found_path}: {e}',
-                                            file=sys.stderr
-                                        )
-                                        continue
-                                    _process_fragment_root(rootfrag, None, builder, input_folder)
+                # No top-level asserts created (no '.' contexts).
+                continue
             else:
-                process_element_tree(
-                    node,
-                    builder,
-                    context_xpath='.',
-                    input_folder=input_folder,
-                    ancestor_forbidden=False
-                )
+                node_local = local_name(node.tag if HAS_LXML else node.tag)
+                if node_local == 'PublicationDelivery':
+                    # Start absolute path at PublicationDelivery (no parent)
+                    process_element_tree(
+                        node,
+                        builder,
+                        parent_context_path='',
+                        input_folder=input_folder,
+                        is_ref_root=False
+                    )
+                else:
+                    # Skip non-PublicationDelivery top-level elements to enforce a single absolute root
+                    if VERBOSE:
+                        print(f"Skipping top-level element '{node_local}' (only PublicationDelivery is used as absolute root).")
 
     out = builder.tostring()
     write_file(output_path, out)

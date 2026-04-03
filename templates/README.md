@@ -42,61 +42,54 @@ The template is used in three ways:
 |       | quays               | expected  | 0..1 | QuayType[]               | The QUAYs contained in the STOP PLACE, that is platforms, jetties, bays, taxi ranks, and other points of physical access to VEHICLEs. |                                                                                                                                                                                                                                                                                                                                                                             |
 | >> << | Quay                | expected  | 0..* | QuayType                 |                                                                                                                                       |                                                                                                                                                                                                                                                                                                                                                                             |
 
-Sub:
-* xxx
-* source. Template
-
-Element:
-* The relevantXML
-* source: XSD
-
-Usage:
-* xxx
-* source: Template
-
-* Cardinality:
-* xxx
-* source: XSD
-
-Type:
-* source: XSD
-
-Description:
-* source: XSD
-* 
-Notes:
-* source: Template
+### Legend
+* Sub:
+  * Identiation rule "<<" mean referenced, ">>" indentation
+  * source: Template
+* Element:
+  * The relevant XML element
+  * source: Template
+* Usage:
+  * How the Swiss profile will use it: mandatory | forbidden
+  * source: Template
+* Card:
+  * Cardinality of the element in NeTEx
+  * source: XSD
+* Type:
+  * the type of the element
+  * source: XSD
+* Description:
+  * The original description from the XSD.
+  * source: XSD
+* Notes:
+  * Notes from the Swiss profile
+  * source: Template
 
 
-## Marking in the templates
+## Markup in the templates
 
 The document https://github.com/openTdataCH/netexRealisationGuideSwitzerland/blob/main/mgmt/Changes_in_profile.md describes the changes we might want to apply to the standard NeTEx schema in order to obtain the profile. 
-
 Here the thoughts how and to what extent this might be achieved for each type of change. I just treated elements so far, not attributes.
 
 ### Add description
-
+The profile wants to add a more specialised description. Below the begin tag of the element there a comment is added:
 `<!-- ch-notice: <Text> -->`
 
-### Change cardinality
-
+### Change usage
+The profile wants to make elements mandatory ord forbidden.
 `<!-- ch-usage: <mandatory|forbidden|optional> -->`
-- mandatory: xxx
-- forbidden: xxx
-- optional: xxxx
+
+TODO: Do we want more categories?
 
 Perhaps additional categories? 
 - expected
-- deprecated
+- optional
 - ignored - this could be taken as the default if the element doesn't show up in the documentation; the xsd for the profile would contain the element
 
 
 ### Restricted choice
-
 In some cases only a subset of choices is allowed.
-
 If only one choice is allowed - simple: the template XML shows only the allowed variant. 
-
 If multiple choices are allowed - the template XML could be extended with additonal variants (thereby violating the xsd) and marking all elements affected by the choices.
 
 ```

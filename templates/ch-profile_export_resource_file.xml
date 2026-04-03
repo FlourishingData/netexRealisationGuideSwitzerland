@@ -7,6 +7,7 @@
 		<CompositeFrame id="ch:1:CompositeFrame" version="any">
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame" version="any">
+					<!-- ch-usage: mandatory -->
 					<!-- ch-referenced -->
 				</ResourceFrame>
 				<ServiceFrame id="ch:1:ServiceFrame" version="any">
