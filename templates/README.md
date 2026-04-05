@@ -1,7 +1,8 @@
 
-# Building some parts of the profile from templates
-First thoughts based on the idea that XML examples could be used as a scaffold for a documentation of the profile:
-* **Principle:** An XML example/template is annotated with comments that contain all necessary information allowing (a) to derive the Swiss profile from the NeTEx schema, and (b) to provide useful profile-specific documentation. 
+# Building the profile checker and most documentation tables from templates
+First thoughts based on the idea that XML examples could be used as a scaffold for a 
+documentation of the profile:
+* **Principle:** An XML example/template is annotated with comments that contain all necessary information allowing (a) to derive the Swiss profile from the NeTEx schema, and (b) to provide useful profile-specific documentation.
 * **Machinery:** Software made by SBB and by Hans-Jürgen Rennau is likely capable of generating documentation tables for each XML example/template, as well a a complete xsd for the Swiss profile. 
 
 
@@ -12,12 +13,13 @@ First thoughts based on the idea that XML examples could be used as a scaffold f
 
 ## Processes
 
-The template is used in three ways:
-- generate files with elements to be used directly
+The templates are used in three ways:
+- generate example xml files with elements to be used directly
 - markdown tables for documentation
 - schematron files
 
 ### Possible markdown result: StopPlace
+The following shows the idea of and output table we want to have:
 
 | Sub   | Element             | Usage     | Card | Type                     | Description                                                                                                                           | Note                                                                                                                                                                                                                                                                                                                                                                        |
 | ----- | ------------------- | --------- |------| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -65,26 +67,53 @@ The template is used in three ways:
   * Notes from the Swiss profile
   * source: Template
 
+## Templates are valid NeTEx XML file
+Each template is a valid XML file itself. So one can also study them directly.
+Everything is done with annotations in comments below/within the elements.
 
-## Markup in the templates
+e.g.
+```commandline
+<ResponsibilitySet id="ch:1:ResponsbilitySet-gen" version="1">
+	<!-- ch-note: Each combination of Authority and Operator needs a ResponsibilitySet. -->
+	<!-- ch-usage: mandatory -->
+	<!-- ch-referenced -->
+```
+We have two snippets that say where the relevant part of the template start (the part that defines the thing we want to process afterwards):
+* `<!-- ch-start: Example starts here -->`
+* `<!-- ch-stop: Example stops here -->`
+
+For the top level templates only the first line `<?xml version="1.0" encoding="UTF-8"?>
+` is not in scope.
+For the others it is the element that needs to be processed (e.g. `StopPlace` in `StopPlace.xml`).
+
+It is also shown that multiple annotations can be used for one element.
+
+## Annotations in the templates and what they do achieve
 
 The document https://github.com/openTdataCH/netexRealisationGuideSwitzerland/blob/main/mgmt/Changes_in_profile.md describes the changes we might want to apply to the standard NeTEx schema in order to obtain the profile. 
-Here the thoughts how and to what extent this might be achieved for each type of change. I just treated elements so far, not attributes.
+Here we describe, what we realised so far and what is planned.
+
+Important behaviour for the markdown: 
+**Only elements having one of the `<!-- ch-<annotation> -->` will be shown in the tables.**
+
 
 ### Add description
 The profile wants to add a more specialised description. Below the begin tag of the element there a comment is added:
-`<!-- ch-notice: <Text> -->`
+`<!-- ch-note: <Text> -->` and `<!-- ch-notice: <Text> -->`
+
+Output:
+* schematron: In the schematron this will result in a comment. 
+* markdown: This will be used in the note part of the table.
+* xml: This will remain as a comment without the the starting **Swiss profile**.
 
 ### Change usage
-The profile wants to make elements mandatory ord forbidden.
-`<!-- ch-usage: <mandatory|forbidden|optional> -->`
+The profile wants to make elements mandatory ord forbidden.  
+`<!-- ch-usage: <mandatory|forbidden|optional|ignored|expected> -->`
 
-TODO: Do we want more categories?
-
-Perhaps additional categories? 
-- expected
-- optional
-- ignored - this could be taken as the default if the element doesn't show up in the documentation; the xsd for the profile would contain the element
+Output:
+* schematron: forbidden and mandatory result in rules.
+* markdown: will be used for the usage column.
+* xml: `forbidden` and `ignored` are removed
 
 
 ### Restricted choice
@@ -92,66 +121,72 @@ In some cases only a subset of choices is allowed.
 If only one choice is allowed - simple: the template XML shows only the allowed variant. 
 If multiple choices are allowed - the template XML could be extended with additonal variants (thereby violating the xsd) and marking all elements affected by the choices.
 
-```
-<!-- CHOICE: a -->
-<!-- CHOICE: a -->
-<!-- CHOICE: b -->
-<!-- CHOICE: b -->
-```
+**Note: We did not implement this. In many cases having forbidden/mandatory is enough.**
 
+### Deprecated
+Perhaps some elements are still used, but will be deprecated. This is marked with this flag:
+`<!-- ch-deprecated -->`
 
-### Disallow element / attribute
-
-```<!-- Note: Data containing the element will be rejected. -->
-<!-- ch-usage: forbidden -->
-```
-
-See section **Cardinality** above.
-
-### Mark an element / attribute as to be ignored during importation.
-
-```<!-- Note: Importer will ignore the element. -->
-<!-- Usage: ignored -->
-```
-
-See section **Cardinality** above. Or slightly different treatment?
+* schematron: warning (report) is produced.
+* markdown: tbd
+* xml: not used anymore.
 
 ### Restrict an enumeration in a given element
+We might want to restrict some enumerations and allow only some variants.
+Certainly a notice can be made.
 
-Either in `<!-- Note: -->` or `<!-- AllowedEnums: -->`
+The improved element needs testing, when we see a first example:
 
-In any case, the list of enums should appear in *Note* column of the documentation table. 
-
-Also possible to restrict the xsd if the enum is documented in its own separate table.
-
+**NOTE: TBD **
 
 ### Restrict strings, integers etc
-
 We won't do this currently.
-
 e.g. only values between-5 and 5.
 
 ### Restrict the allowed types in a container
+Certainly a notice helps.
+With `ch-usage: forbidden` and `ch-usage: mandatory` this can be modeled.
+We will often simplify containers to make the processing easier.
 
 e.g. no `QuayRef` in quays only `Quay`
 
-- Either just as a `<!-- Note: -->`
-- Or, theoretically, one could also have  `<!-- AllowedElements: Quay -->`  and some additional logic. 
-
-
 ### Extension in extension point
-
-Extensions are explicit in the template XML, can be marked as mandatory by `<!-- Usage: mandatory -->`.
-
-This may also be a full substructure
+Extensions are explicit in the template XML, must be marked with `ch-usage` when thea are to be used.
 
 
 ### Restrict to a subset of substitutionGroup
-
 Restrictions on elements that are inherited or part of a subgroup is straightforward since they appear explicitely in the template XML and can be marked as necessary. 
+This is also done with `ch-usage`.
 
-`<!-- Usage: -->`, see section ***ChangeCardinality***
+### Attribute handling
+In the NeTEx specification and most profiles a lot is said about attributes too.
+For NeTEx 2.0 `id` and `version` are now mandatory, `order' is no longer important.
 
+We will use `responsibilitySetRef` in many cases and want it there. For this we needed a new annotation.
+
+**NOTE: We use `versionRef` sometimes in the template. This allows us to minimize the templates. `versionRef` blocks the XSD validation of the ref-id relationship.
+`versionRef` is intended to be used, when the reference is not in the same file.
+In all the output form the template processing the `versionRef` is replaced with `version`. 
+We will rather have some files that don't validate (`PassengerStopAssinments`, `JourneyMeeting`, `InterchangeRule` etc), than to deal with `versionRef` in our profile. So that's the only part where the templates cannot be taken litterally.**
+
+We have not yet implemented the annotation for the attributes, but it will look like this:
+
+```commandline
+<!-- ch-attrs: id version responsibilitySetRef -->
+```
+If nothing is mentioned, it is only id and version that we want to see.
+
+Other attributes will be ignored by our profile.
+
+### Referencing
+When we use `<!-- ch-referenced -->` we express that there is a template with the same name as the element (e.g. `StopPlace` --> `StopPlace.xml`).
+In some cases two different types of StopPlace may be needed (e.g. the full version for the site model and the minimal version of the importation from a operator)
+
+Then `<!-- ch-referenced: <alternativefilename> -->` can be used. 
+
+The full version should always be in the "normal" version (here `StopPlace.xml` should contain the full StopPlace as needed for the site model).
+
+With referencing we will do a lot of reuse of elements. So design them carefully.
 
 ## Top-level templates
 We have in this profile different files. Which then use different schematrons for the different files.
@@ -165,3 +200,4 @@ We have in this profile different files. Which then use different schematrons fo
 * ch-profile_psa_file.xml: All PassengerStopAssignments: won't validate
 * ch-profile_interactions_file.xml: JourneyMeetings, InterchangeRules: won't validate
 
+## 
