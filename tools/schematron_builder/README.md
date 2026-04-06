@@ -17,3 +17,4 @@ The script (started from the root of the project):
 
 ## Supported functionality
 For details on the functionality read [the documentation in the templates folder](../../templates/README.md).
+f
