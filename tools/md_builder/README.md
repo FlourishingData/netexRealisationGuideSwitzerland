@@ -9,6 +9,7 @@ This tool generates markdown documentation tables from annotated NeTEx XML templ
 - Uses XSD schemas for type and cardinality data
 - Supports element referencing and linking between markdown files
 - Handles nested elements with proper indentation markers
+- Converts versionRef to version in element descriptions (e.g., `versionRef="1"` becomes `version="1"`)
 
 ## Installation
 
@@ -29,6 +30,22 @@ python md_builder.py -i <input_folder> -o <output_folder> -x <xsd_file>
 - `-i, --input`: Input folder containing XML template files
 - `-o, --output`: Output folder for generated markdown files
 - `-x, --xsd`: XSD schema file for type information
+
+### Convenience Scripts
+
+The tool includes convenience scripts for batch processing:
+
+**Windows:**
+```bash
+run.bat
+```
+
+**Linux/Mac:**
+```bash
+./run.sh
+```
+
+These scripts process all XML templates in the templates directory and generate markdown files in the output directory.
 
 ## Template Annotation Tags
 
