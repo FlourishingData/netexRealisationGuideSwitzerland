@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServiceJourney id="generated" version="1">
+  <validityConditions>
+    <AvailabilityCondition id="gernerated" version="1">
+      <FromDate/>
+      <ToDate/>
+      <ValidDayBits/>
+      <timebands>
+        <Timeband id="generated" version="1"/>
+      </timebands>
+    </AvailabilityCondition>
+  </validityConditions>
+  <keyList>
+    <KeyValue>
+      <Key/>
+      <Value/>
+    </KeyValue>
+  </keyList>
+  <Extensions>
+    <facilities>
+      <Facility id="ch:1:facility:f1" version="any" order="1">
+        <validityConditions>
+          <AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="any"/>
+        </validityConditions>
+        <ServiceFacilitySetRef ref="ch:1:ServiceFacilitySet:A___1" versionRef="any"/>
+      </Facility>
+    </facilities>
+  </Extensions>
+  <PrivateCode/>
+  <TransportMode/>
+  <TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="any"/>
+  <TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="any"/>
+  <noticeAssignments>
+    <NoticeAssignment id="ch:1:NoticeAssignment:ch_1_ServiceJourney_ch_1_sjyid_100001_71707-003_1_0" version="any">
+      <validityConditions>
+        <AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="any"/>
+      </validityConditions>
+      <NoticeRef ref="ch:1:Notice:A___1" versionRef="any"/>
+    </NoticeAssignment>
+  </noticeAssignments>
+  <ServiceAlteration/>
+  <DepartureTime/>
+  <LineRef ref="ch:2:Line:11.IR.90" versionRef="any"/>
+  <DirectionType/>
+  <trainNumbers>
+    <TrainNumberRef ref="ch:1:TrainNumber:71707" versionRef="1"/>
+  </trainNumbers>
+  <passingTimes>
+    <TimetabledPassingTime id="generated" version="1">
+      <PointInJourneyPatternRef ref="generated" versionRef="1"/>
+    </TimetabledPassingTime>
+  </passingTimes>
+</ServiceJourney>

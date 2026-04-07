@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SiteFacilitySet id="generated" version="1">
+  <!-- List of SiteFacility. Be careful: not all are supported. Consult profile. Make sure to not generate identical SiteFacilitySets. Reuse them. -->
+  <validityConditions>
+    <AvailabilityCondition id="generated" version="1">
+      <FromDate/>
+      <ToDate/>
+      <ValidDayBits/>
+    </AvailabilityCondition>
+  </validityConditions>
+  <FareClasses/>
+  <SanitaryFacilityList/>
+  <TicketingServiceFacilityList/>
+  <LuggageLockerFacilityList/>
+</SiteFacilitySet>

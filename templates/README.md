@@ -60,6 +60,17 @@ Each template is a valid NeTEX XML file with special comment annotations that de
 - `<!-- ch-class-id-must-exist -->`: Requires that referenced element with ID exists in document
 - `<!-- ch-attrs: attr1 attr2 attr3 -->`: Specifies which attributes are allowed
 
+## Attribute Handling
+
+### versionRef vs version
+
+In NeTEX, reference elements often use `versionRef` instead of `version` attributes. The documentation and example generation tools automatically convert these:
+
+- **Input**: `<ElementRef versionRef="1">`
+- **Output**: `<ElementRef version="1">`
+
+This conversion happens in both the markdown documentation and XML snippet generation tools.
+
 ## Template Types
 
 ### Top-Level Templates

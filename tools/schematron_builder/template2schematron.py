@@ -13,15 +13,35 @@ Usage:
         -x XSD_FILE \
         -i INPUT_FOLDER \
         -o OUTPUT_FILE \
-        [-v]
+        [-v] \
+        [-r ROOT_ELEMENT]
 
-Example:
+Examples:
+    # Process a single ch-profile template
     python template2schematron.py \
         -t templates/ch-profile_export-timetable_file.xml \
         -x xsd/xsd/NeTEx_publication.xsd \
         -i templates \
         -o generated/schematrons/ch-profile_export_timetable_file.sch \
         -v
+
+    # Process all ch-profile templates (using shell loop)
+    for template in templates/ch-profile_*.xml; do
+        output="generated/schematrons/$(basename "$template" .xml).sch"
+        python template2schematron.py \
+            -t "$template" \
+            -x xsd/xsd/NeTEx_publication.xsd \
+            -i templates \
+            -o "$output"
+    done
+
+    # Use a custom root element (default: PublicationDelivery)
+    python template2schematron.py \
+        -t templates/custom_template.xml \
+        -x xsd/xsd/NeTEx_publication.xsd \
+        -i templates \
+        -o generated/schematrons/custom.sch \
+        -r CustomRootElement
 """
 
 import sys
@@ -683,6 +703,11 @@ def parse_args(argv):
         action='store_true',
         help='Enable verbose logging.'
     )
+    parser.add_argument(
+        '-r', '--root-element',
+        default='PublicationDelivery',
+        help='Root element to start processing from (default: PublicationDelivery).'
+    )
     return parser.parse_args(argv[1:])
 
 
@@ -698,6 +723,7 @@ def main(argv):
     input_folder = args.input_folder
     output_path = args.output
     VERBOSE = args.verbose
+    root_element = args.root_element
 
     # Validate inputs
     if not os.path.isfile(template_path):
@@ -727,7 +753,8 @@ def main(argv):
             print(f'Error parsing extracted region: {e}', file=sys.stderr)
             continue
 
-        # Always start traversal from PublicationDelivery downwards
+        # Start traversal from the specified root element
+        root_element_found = False
         for node in list(root):
             if isinstance(node, ET._Comment):
                 # We ignore top-level comments for schematron generation in this absolute-path mode
@@ -737,8 +764,8 @@ def main(argv):
                 continue
             else:
                 node_local = local_name(node.tag)
-                if node_local == 'PublicationDelivery':
-                    # Start absolute path at PublicationDelivery (no parent)
+                if node_local == root_element:
+                    # Start absolute path at the specified root element (no parent)
                     process_element_tree(
                         node,
                         builder,
@@ -746,10 +773,14 @@ def main(argv):
                         input_folder=input_folder,
                         is_ref_root=False
                     )
+                    root_element_found = True
                 else:
-                    # Skip non-PublicationDelivery top-level elements to enforce a single absolute root
+                    # Skip non-root elements to enforce a single absolute root
                     if VERBOSE:
-                        print(f"Skipping top-level element '{node_local}' (only PublicationDelivery is used as absolute root).")
+                        print(f"Skipping top-level element '{node_local}' (only {root_element} is used as absolute root).")
+
+        if not root_element_found:
+            print(f"Warning: Root element '{root_element}' not found in template. No rules generated.", file=sys.stderr)
 
     out = builder.tostring()
     write_file(output_path, out)

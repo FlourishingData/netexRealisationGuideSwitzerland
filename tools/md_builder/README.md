@@ -9,6 +9,7 @@ This tool generates markdown documentation tables from annotated NeTEx XML templ
 - Uses XSD schemas for type and cardinality data
 - Supports element referencing and linking between markdown files
 - Handles nested elements with proper indentation markers
+- Converts versionRef to version in element descriptions (e.g., `versionRef="1"` becomes `version="1"`)
 
 ## Installation
 

@@ -16,8 +16,7 @@
 							<GroupBookingFacility>groupsAllowed</GroupBookingFacility>
 							<accommodations>
 								<!-- usage: forbidden -->
-								<AccommodationRef ref="notUsed" versionRef="none">
-							</AccommodationRef>
+								<AccommodationRef ref="notUsed" versionRef="none"/>
 							</accommodations>
 						</ServiceFacilitySet>
 						<!-- ch-stop: example stops here -->

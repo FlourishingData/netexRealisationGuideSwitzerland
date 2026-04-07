@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ResourceFrame id="ch:1:ResourceFrame" version="any">
+  <responsibilitySets>
+    <ResponsibilitySet id="ch:1:ResponsbilitySet-gen" version="1">
+      <!-- Each combination of Authority and Operator needs a ResponsibilitySet. -->
+    </ResponsibilitySet>
+  </responsibilitySets>
+  <typesOfValue>
+    <ValueSet id="ch:1:ValueSet:notices" version="1" nameOfClass="TypeOfNotice">
+      <values>
+        <TypeOfNotice id="ch:1:TypeOfNotice:11" version="1">
+          <Name/>
+          <PrivateCode/>
+        </TypeOfNotice>
+        <TypeOfNotice id="ch:1:TypeOfNotice:1" version="1">
+          <Name/>
+          <PrivateCode/>
+        </TypeOfNotice>
+        <TypeOfNotice id="ch:1:TypeOfNotice:10" version="1">
+          <Name/>
+          <PrivateCode/>
+        </TypeOfNotice>
+        <TypeOfNotice id="ch:1:TypeOfNotice:3" version="1">
+          <Name/>
+          <PrivateCode/>
+        </TypeOfNotice>
+        <TypeOfNotice id="ch:1:TypeOfNotice:2" version="1">
+          <Name/>
+          <PrivateCode/>
+        </TypeOfNotice>
+      </values>
+    </ValueSet>
+    <ValueSet id="ch:1:ValueSet:TypesOfProductCategory" version="1" nameOfClass="TypeOfProductCategory">
+      <values>
+        <TypeOfProductCategory id="ch:1:TypeOfProductCategory:TER" version="1">
+          <alternativeTexts>
+            <AlternativeText attributeName="Name">
+              <Text lang="it"/>
+            </AlternativeText>
+            <AlternativeText attributeName="Name">
+              <Text lang="en"/>
+            </AlternativeText>
+            <AlternativeText attributeName="Name">
+              <Text lang="fr"/>
+            </AlternativeText>
+          </alternativeTexts>
+          <Name lang="de"/>
+          <ShortName/>
+        </TypeOfProductCategory>
+      </values>
+    </ValueSet>
+  </typesOfValue>
+  <organisations>
+    <Operator id="sboid" version="1">
+      <!-- We will use this organisation also in AuthorityRef. The problem is that the sboid can be used only once. -->
+    </Operator>
+  </organisations>
+  <siteFacilitySets>
+    <SiteFacilitySet id="generated" version="1"/>
+  </siteFacilitySets>
+  <serviceFacilitySets>
+    <ServiceFacilitySet id="generated" version="1"/>
+  </serviceFacilitySets>
+</ResourceFrame>

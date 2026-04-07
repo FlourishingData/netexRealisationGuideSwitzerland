@@ -2,9 +2,6 @@
   <sch:ns prefix="netex" uri="http://www.netex.org.uk/netex"/>
   <sch:title>Generated schematron from template</sch:title>
   <sch:pattern id="p1">
-    <sch:rule context="//netex:PublicationDelivery/netex:dataObjects/netex:CompositeFrame/netex:frames">
-      <sch:assert test="count(netex:ResourceFrame) > 0">ResourceFrame must be present</sch:assert>
-      </sch:rule>
     <sch:rule context="//netex:PublicationDelivery/netex:dataObjects/netex:CompositeFrame/netex:frames/netex:ResourceFrame">
       <sch:assert test="count(netex:responsibilitySets) > 0">responsibilitySets must be present</sch:assert>
       <sch:assert test="count(netex:typesOfValue) > 0">typesOfValue must be present</sch:assert>
