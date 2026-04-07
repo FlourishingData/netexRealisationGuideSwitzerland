@@ -14,6 +14,9 @@ The `template2schematron.py` script processes XML templates containing special c
 - **Modular Design**: Supports referenced templates for code reuse
 - **Comprehensive Validation**: Generates rules for presence, absence, enumerations, and more
 
+## Supported functionality
+For details on the functionality read [the documentation in the templates folder](../../templates/README.md).
+f
 ## Installation
 
 Requires Python 3.6+ and lxml:
