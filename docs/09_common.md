@@ -21,3 +21,63 @@ It is important to note that internal or artificially generated IDs should not b
 
 ID must be globally unique during importation. 
 IDs may also be partially or completely artificially generated. The persistence of ID between exports is then usually not guaranteed. Important business level keys are stored in ele-ments not in IDs (PublicKey, PrivateKey, KeyList). They must be communicated as attrib-ute in the elements.
+
+## FrameDefaults
+With the FrameDefaults we set some basic parameters. When they are not set, we still assume the values that we present in the XML snippet.
+- [Swiss profile tables](generated/markdown-examples/FrameDefaults.md)
+- [XML Snippet](generated/xml-snippets/FrameDefaults.xml)
+
+## AlternativeName
+tbd 5.1
+
+- [Swiss profile tables](generated/markdown-examples/AlternativeName.md)
+- [XML Snippet](generated/xml-snippets/AlternativeName.xml)
+
+## AlternativeText
+tbd 5.2
+
+- [Swiss profile tables](generated/markdown-examples/AlternativeText.md)
+- [XML Snippet](generated/xml-snippets/AlternativeText.xml)
+
+# ResourceFrame
+The ResourceFrame is first in the standard data.
+
+tbd 6
+
+- [Swiss profile tables](generated/markdown-examples/ResourceFrame.md)
+- [XML Snippet](generated/xml-snippets/ResourceFrame.xml)
+
+
+## ResponsibilitySet
+We use this model to  describe the different roles of the participating companies. For the most part, the company code is used to fully identify the services provided. For the PAG company (801), the attribute ResponsibleArea(Ref) must also be taken into account.
+
+
+For some replacement services, the public transport sector has decided that the different roles of the companies should be represented when defining the services:
+- the role of the company holding the concession for the original service
+- the role of the company responsible for providing the transport service
+
+These 2 roles are represented in the ResponsibilitySet element. 
+- the role of the concession company is represented by the EntityLegalOwnership value of the StakeholderRoleType attribute
+- the role of the company responsible for carrying out the transport is represented by the Op-eration value of the StakeholderRoleType attribute.
+
+- [Swiss profile tables](generated/markdown-examples/ResponsibilitySet.md)
+- [XML Snippet](generated/xml-snippets/ResponsibilitySet.xml)
+tbd 6.5
+
+## TypeOfValue
+6.2
+
+### TypeOfNotice
+6.2
+
+### TypeOfProductCategory
+6.2
+
+### TypeOfService
+tbd
+
+## Organisation / Operator / Authority
+
+tbd 6.3., 6.4
+- [Swiss profile tables](generated/markdown-examples/Operator.md)
+- [XML Snippet](generated/xml-snippets/Operator.xml)

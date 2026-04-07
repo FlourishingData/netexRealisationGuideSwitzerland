@@ -7,6 +7,7 @@
 			<frames>
 				<!-- ch-start: Example starts here -->
 				<ResourceFrame id="ch:1:ResourceFrame" version="any">
+					<!-- ch-usage: mandatory -->
 					<responsibilitySets>
 						<!-- ch-usage: mandatory -->
 						<ResponsibilitySet id="ch:1:ResponsbilitySet-gen" version="1">
@@ -71,6 +72,8 @@
 						</ValueSet>
 					</typesOfValue>
 					<organisations>
+						<!-- ch-notice: We currently face a problem that the same sboid might be reused for Operator and Authority. We will have to check, if we only define Operators, but ue them in Authority as well. TBD-->
+						<!-- ch-usage: mandatory -->
 						<Operator id="sboid" version="1">
 							<!-- ch-notice: We will use this organisation also in AuthorityRef. The problem is that the sboid can be used only once. -->
 							<!-- ch-referenced -->
@@ -78,11 +81,15 @@
 						</Operator>
 					</organisations>
 					<siteFacilitySets>
+						<!-- ch-notice: Depending on the export/import part, there will be SiteFacilitySets to be included or not. -->
+						<!-- ch-usage: optional -->
 						<SiteFacilitySet id="generated" version="1">
+							<!-- ch-usage: optional -->
 							<!-- ch-referenced -->
 						</SiteFacilitySet>
 					</siteFacilitySets>
 					<serviceFacilitySets>
+						<!-- ch-notice: Depending on the export/import part, there will be ServiceFacilitySets to be included. If there are ServiceJourneys we expect there to be some. -->
 						<ServiceFacilitySet id="generated" version="1">
 							<!-- ch-referenced -->
 						</ServiceFacilitySet>
