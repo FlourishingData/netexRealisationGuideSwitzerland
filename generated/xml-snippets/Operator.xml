@@ -2,8 +2,8 @@
 <Operator id="ch:1:sboid:100015" version="any">
   <keyList>
     <KeyValue>
-      <Key/>
-      <Value/>
+      <Key>SBOID</Key>
+      <Value>ch:1:sboid:100015</Value>
     </KeyValue>
   </keyList>
   <PrivateCode/>

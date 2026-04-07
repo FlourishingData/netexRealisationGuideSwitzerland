@@ -131,6 +131,179 @@ def get_cardinality(min_occurs, max_occurs):
         return f"{min_occurs}..{max_occurs}"
 
 
+def search_xsd_files_for_element(base_dir, element_name):
+    """Search all XSD files in the directory structure for a specific element"""
+    namespaces = {'xs': 'http://www.w3.org/2001/XMLSchema'}
+    
+    # Search through all XSD files in the directory tree
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            if file.endswith('.xsd'):
+                file_path = os.path.join(root, file)
+                try:
+                    parser = etree.XMLParser()
+                    xsd_doc = etree.parse(file_path, parser)
+                    
+                    # Look for the element - try both with and without namespace
+                    element_xpath = f"//xs:element[@name='{element_name}']"
+                    elements = xsd_doc.xpath(element_xpath, namespaces=namespaces)
+                    
+                    # If not found, try without namespace
+                    if not elements:
+                        element_xpath_no_ns = f"//*[local-name()='element' and @name='{element_name}']"
+                        elements = xsd_doc.xpath(element_xpath_no_ns)
+                    
+                    if elements:
+                        return file_path  # Return the file path where element was found
+                        
+                except Exception as e:
+                    # Skip files that can't be parsed
+                    continue
+    
+    return None
+
+
+def get_element_metadata(xsd_path, element_name):
+    """Extract detailed metadata for an element from XSD using XPath with substitution group support"""
+    try:
+        # First try to find the element in the main XSD file
+        parser = etree.XMLParser()
+        xsd_doc = etree.parse(xsd_path, parser)
+        namespaces = {'xs': 'http://www.w3.org/2001/XMLSchema'}
+        
+        # Try to find the element in the main file
+        element_xpath = f"//xs:element[@name='{element_name}']"
+        element = xsd_doc.xpath(element_xpath, namespaces=namespaces)
+        
+        # If not found in main file, search all XSD files in the directory
+        if not element:
+            base_dir = os.path.dirname(os.path.abspath(xsd_path))
+            found_in_file = search_xsd_files_for_element(base_dir, element_name)
+            if found_in_file is not None:
+                # Parse the file where the element was found
+                xsd_doc = etree.parse(found_in_file, parser)
+                # Find the element in this document
+                element_xpath = f"//xs:element[@name='{element_name}']"
+                element = xsd_doc.xpath(element_xpath, namespaces=namespaces)
+                
+                # If not found, try without namespace
+                if not element:
+                    element_xpath_no_ns = f"//*[local-name()='element' and @name='{element_name}']"
+                    element = xsd_doc.xpath(element_xpath_no_ns)
+        
+        if not element:
+            return None
+        
+        element = element[0]
+        
+        # Debug: print what we found (commented out by default)
+        # print(f"DEBUG: Found element {element_name} with tag {element.tag}, attributes {element.attrib}")
+        
+        # Get cardinality - use element's own if available, otherwise traverse substitution group
+        min_occurs = element.get('minOccurs', '1')
+        max_occurs = element.get('maxOccurs', '1')
+        cardinality = get_cardinality(min_occurs, max_occurs)
+        
+        # Get type - check substitution group chain recursively
+        element_type = "unknown"
+        current_element = element
+        visited_elements = set()  # Prevent infinite loops
+        
+        while current_element is not None and current_element.get('name') not in visited_elements:
+            visited_elements.add(current_element.get('name'))
+            
+            # Check for direct type attribute
+            type_attr = current_element.get('type')
+            if type_attr:
+                element_type = type_attr.split(':')[-1]  # Remove namespace prefix
+                break
+            
+            # Check for inline types - try both with and without namespace
+            simple_type = current_element.find('xs:simpleType', namespaces)
+            complex_type = current_element.find('xs:complexType', namespaces)
+            
+            if simple_type is None:
+                simple_type = current_element.find('simpleType')
+            if complex_type is None:
+                complex_type = current_element.find('complexType')
+                
+            if simple_type is not None:
+                element_type = "inline simpleType"
+                break
+            elif complex_type is not None:
+                element_type = "inline complexType"
+                break
+            
+            # Follow substitution group
+            substitution_group = current_element.get('substitutionGroup')
+            if substitution_group:
+                # Find the head element
+                head_name = substitution_group.split(':')[-1]
+                head_xpath = f"//xs:element[@name='{head_name}']"
+                head_element = xsd_doc.xpath(head_xpath, namespaces=namespaces)
+                if head_element:
+                    current_element = head_element[0]
+                    continue
+            
+            break
+        
+        # Debug output (commented out by default)
+        # print(f"DEBUG: Element {element_name} - type: {element_type}")
+        # print(f"DEBUG: Element attributes: {element.attrib}")
+        # print(f"DEBUG: Element children: {[child.tag for child in element]}")
+        # simple_type = element.find('xs:simpleType', namespaces)
+        # complex_type = element.find('xs:complexType', namespaces)
+        # print(f"DEBUG: Has simpleType: {simple_type is not None}, Has complexType: {complex_type is not None}")
+        # if complex_type is not None:
+        #     print(f"DEBUG: complexType tag: {complex_type.tag}")
+        
+        # Get description - collect from entire substitution group chain
+        description = ""
+        current_element = element
+        visited_elements = set()
+        
+        while current_element is not None and current_element.get('name') not in visited_elements:
+            visited_elements.add(current_element.get('name'))
+            
+            # Check current element's annotation - try both with and without namespace
+            annotation = current_element.find('xs:annotation', namespaces)
+            if annotation is None:
+                annotation = current_element.find('annotation')
+                
+            if annotation is not None:
+                doc = annotation.find('xs:documentation', namespaces)
+                if doc is None:
+                    doc = annotation.find('documentation')
+                    
+                if doc is not None and doc.text:
+                    if description:
+                        description += " \n" + doc.text.strip()
+                    else:
+                        description = doc.text.strip()
+            
+            # Follow substitution group
+            substitution_group = current_element.get('substitutionGroup')
+            if substitution_group:
+                head_name = substitution_group.split(':')[-1]
+                head_xpath = f"//xs:element[@name='{head_name}']"
+                head_element = xsd_doc.xpath(head_xpath, namespaces=namespaces)
+                if head_element:
+                    current_element = head_element[0]
+                    continue
+            
+            break
+        
+        return {
+            'cardinality': cardinality,
+            'type': element_type,
+            'description': description or ""
+        }
+        
+    except Exception as e:
+        print(f"Warning: Could not extract metadata for {element_name}: {e}")
+        return None
+
+
 def parse_template_file(file_path, xsd_type_info):
     """Parse a single template file and extract documentation"""
     try:
@@ -201,6 +374,26 @@ def parse_template_file(file_path, xsd_type_info):
             
             if common_ancestor is None:
                 common_ancestor = root
+            
+            # Try to find the most specific element between the markers
+            # Look for the first element after the start comment
+            found_specific_element = False
+            for node in list(common_ancestor):
+                if isinstance(node, etree._Comment):
+                    continue
+                if hasattr(node, 'tag'):
+                    # Check if this node is between our start and stop comments
+                    node_idx = list(common_ancestor).index(node)
+                    if node_idx > start_idx and node_idx < stop_idx:
+                        common_ancestor = node
+                        found_specific_element = True
+                        break
+            
+            # Debug output (commented out by default)
+            # if found_specific_element:
+            #     print(f"Found specific element: {local_name(common_ancestor.tag)}")
+            # else:
+            #     print("Using common ancestor")
         else:
             # For ch-profile templates, use the root as common ancestor
             common_ancestor = root
@@ -379,6 +572,17 @@ def generate_markdown_table(data, filename, xsd_type_info):
             if 'type' in xsd_info:
                 xsd_type = xsd_info['type']
         
+        # Try enhanced metadata extraction if still unknown and we have XSD path
+        if xsd_type == 'unknown' and 'xsd_path' in globals():
+            metadata = get_element_metadata(xsd_path, element)
+            if metadata:
+                if not card or card == '1..1':
+                    card = metadata.get('cardinality', card)
+                if xsd_type == 'unknown':
+                    xsd_type = metadata.get('type', xsd_type)
+                if not description:
+                    description = metadata.get('description', description)
+        
         # Handle versionRef -> version conversion for display
         if element.endswith('Ref') and 'versionRef=' in description:
             # Replace versionRef with version in the description
@@ -512,6 +716,9 @@ def main():
     print(f"Loading XSD from {args.xsd}")
     xsd_type_info = load_xsd_type_info(args.xsd)
     print(f"Loaded {len(xsd_type_info)} type definitions")
+    
+    # Store XSD path for metadata extraction
+    xsd_path = args.xsd
     
     # Create output directory
     os.makedirs(args.output, exist_ok=True)

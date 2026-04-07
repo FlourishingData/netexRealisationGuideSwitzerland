@@ -8,7 +8,7 @@
   <lines>
     <!-- Only Line is used and not FlexibleLine -->
     <Line id="use swiss line id where possible" version="1" responsibilitySetRef="dsa">
-      <Name/>
+      <Name>Name is needed</Name>
     </Line>
     <FlexibleLine id="notUsed" version="none">
       <!-- We work with Line only. -->

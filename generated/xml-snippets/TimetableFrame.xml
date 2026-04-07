@@ -11,9 +11,9 @@
   <typesOfService>
     <TypeOfService id="ch:1:TypeOfService:1" version="any">
       <!-- This is exactly how the TypeOfService should be defined for Switzerland. Attention: Only once per file. -->
-      <Name lang="en"/>
-      <ShortName lang="en"/>
-      <PrivateCode/>
+      <Name lang="en">PublicJourney</Name>
+      <ShortName lang="en">N</ShortName>
+      <PrivateCode>1</PrivateCode>
     </TypeOfService>
   </typesOfService>
 </TimetableFrame>

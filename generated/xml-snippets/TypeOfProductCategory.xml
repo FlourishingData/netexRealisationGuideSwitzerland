@@ -3,13 +3,13 @@
   <alternativeTexts>
     <!-- For each language an AlternativeText is needed -->
     <AlternativeText attributeName="Name">
-      <Text lang="it"/>
+      <Text lang="it">Train Express Regional</Text>
     </AlternativeText>
     <AlternativeText attributeName="Name">
-      <Text lang="en"/>
+      <Text lang="en">Train Express Regional</Text>
     </AlternativeText>
     <AlternativeText attributeName="Name">
-      <Text lang="fr"/>
+      <Text lang="fr">Train Express Regional</Text>
     </AlternativeText>
   </alternativeTexts>
   <Name lang="de"/>
