@@ -13,10 +13,12 @@ The realisation specifications mainly concern:
 •	intentional deviations from the official standard within public transport in Switzerland.
 
 ## Supported NeTEx version
-This profile is based on NeTEx 2.0 xxxlink
+This profile is based on NeTEx 2.0 xxxlink tbd.
+
+The relevant specification documents are xxxtbd
 
 ## Binding nature
-This document describes the way in which the NeTEx standard is specifically applied and in-terpreted in Switzerland. It forms the basis for agreements concerning the connection between the individual public transport partners for exchanging timetables. 
+This document describes the way in which the NeTEx standard is specifically applied and interpreted in Switzerland. It forms the basis for agreements concerning the connection between the individual public transport partners for exchanging timetables. 
 
 ## Chapters
 - [Introduction & Roadmap](01_intro_roadmap.md)
