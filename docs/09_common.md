@@ -38,6 +38,15 @@ With the FrameDefaults we set some basic parameters. When they are not set, we s
 - [Original NeTEx table](tbd)
 
 ## AlternativeName
+Original NeTEx definition: "The ALTERNATIVE NAME Model defines reusable texts For example we use it to distinguish between two places with the same name in different countries. It complements the ALTERNA-TIVE TEXT entity which is used to provide translations for individual text attribues of elements.".
+
+As a general rule: further names (alias) of a StopPlace or Organisation are modelled with Al-ternativeNames, whereas direct translations of content (for example of Notice Texts) are modelled with AlternativeTexts.
+For names of ORGANISATIONs and STOP PLACEs etc., we use ALTERNATIVE NAME. For text translations, however, ALTERNATIVE TEXT is used.
+
+We only allow the following values for `NameType`: 
+- `alias`
+- `translation`
+
 tbd 5.1
 
 - [Swiss profile tables](generated/markdown-examples/AlternativeName.md)
