@@ -19,9 +19,7 @@
 					<typesOfValue>
 						<!-- ch-usage: mandatory -->
 						<ValueSet id="ch:1:ValueSet:notices" version="1" nameOfClass="TypeOfNotice">
-							<!-- ch-usage: mandatory -->
 							<values>
-								<!-- ch-usage: mandatory -->
 								<TypeOfNotice id="ch:1:TypeOfNotice:11" version="1">
 									<!-- ch-class-id-must-exist -->
 									<Name>Region</Name>
@@ -50,13 +48,17 @@
 							</values>
 						</ValueSet>
 						<ValueSet id="ch:1:ValueSet:TypesOfProductCategory" version="1" nameOfClass="TypeOfProductCategory">
+							<!-- ch-usage: mandatory -->
 							<values>
+								<!-- ch-usage: mandatory -->
 								<TypeOfProductCategory id="ch:1:TypeOfProductCategory:TER" version="1">
 									<!-- ch-usage: mandatory -->
 									<!-- ch-see -->
 									<alternativeTexts>
+										<!-- ch-usage: mandatory -->
 										<AlternativeText attributeName="Name">
-											<Text lang="it">Train Express Regional</Text>
+											<!-- ch-usage: mandatory -->
+											<Text lang="it"><!-- ch-usage: mandatory -->Train Express Regional</Text>
 										</AlternativeText>
 										<AlternativeText attributeName="Name">
 											<Text lang="en">Train Express Regional</Text>
@@ -91,6 +93,7 @@
 					<serviceFacilitySets>
 						<!-- ch-note: Depending on the export/import part, there will be ServiceFacilitySets to be included. If there are ServiceJourneys we expect there to be some. -->
 						<ServiceFacilitySet id="generated" version="1">
+							<!-- ch-usage: optional -->
 							<!-- ch-see -->
 						</ServiceFacilitySet>
 					</serviceFacilitySets>
