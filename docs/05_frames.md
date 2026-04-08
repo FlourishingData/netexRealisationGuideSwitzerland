@@ -18,5 +18,5 @@ NeTEx is organised in frames. The basic structure of those frames is introduced 
 # The main structure and the needed schemas
 TBD: 4.1
 
-# The CompositeFrame
+# CompositeFrame
 Tbd : 4.1.3
