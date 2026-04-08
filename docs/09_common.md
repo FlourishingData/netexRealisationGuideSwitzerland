@@ -41,19 +41,63 @@ With the FrameDefaults we set some basic parameters. When they are not set, we s
 Original NeTEx definition: "The ALTERNATIVE NAME Model defines reusable texts For example we use it to distinguish between two places with the same name in different countries. It complements the ALTERNA-TIVE TEXT entity which is used to provide translations for individual text attribues of elements.".
 
 As a general rule: further names (alias) of a StopPlace or Organisation are modelled with Al-ternativeNames, whereas direct translations of content (for example of Notice Texts) are modelled with AlternativeTexts.
-For names of ORGANISATIONs and STOP PLACEs etc., we use ALTERNATIVE NAME. For text translations, however, ALTERNATIVE TEXT is used.
+For names of ORGANISATIONs and STOP PLACEs etc., we use ALTERNATIVE NAME. For text translations, however, [ALTERNATIVE TEXT](#AlternativeText) is used.
 
 We only allow the following values for `NameType`: 
 - `alias`
 - `translation`
 
-tbd 5.1
+```
+<alternativeNames>
+  <AlternativeName id="ch:1:AlternativeName:StopPlace:8500010_5" ver-sion="any">
+    <NameType>alias</NameType>
+    <TypeOfName>offical</TypeOfName>
+    <Name lang="de">Basilea FFS</Name>
+  </AlternativeName>
+  <AlternativeName id="ch:1:AlternativeName:StopPlace:8500010_8" ver-sion="any">
+    <NameType>alias</NameType>
+    <TypeOfName>offical</TypeOfName>
+    <Name lang="de">Bale</Name>
+  </AlternativeName>
+<alternativeNames>
+```
 
 - [Swiss profile tables](generated/markdown-examples/AlternativeName.md)
 - [XML Snippet](generated/xml-snippets/AlternativeName.xml)
 
 ## AlternativeText
+Original definition: "It is sometime necessary to provide seval variants of a single text, in particular if the infor-mation is required in several national languages. The AlternativeText element is a generic way of providing such variants for any text attribute of a DataManagedObject. It can be seen as a complement to the AlternativeName mechanism, and can be used to provide an alias for any description or text attribute.
+
+The AlternativeText is part of a DataManagedObject and references the name of the attribute in the NeTEx Metamodel) for which it is providing an alternative. It contains the alternative text as an attribute of type MultilingualString which indicates the language. In addition the text may have a ‘Use for’ language attribute to indicate a second language for which it may be used as an acceptable presentation if there is no native language alternative; normally this will be the same as the language of the string, but might be different."
+
+As a general rule: further names (alias) of a StopPlace or Organisation are modelled with [AlternativeNames](#AlternativeName), whereas direct translations of content (for example of Notice Texts) are modelled with AlternativeTexts.
 tbd 5.2
+```
+<notices>
+    <Notice id=”ch:1:Notice:Hin-1229900” version=”any”>
+      <alternativeTexts>
+        <AlternativeText id=”ch:1:AlternativeText:Notice-Hin_1229900-fr” version=”any” attributeName=”Text” useForLanguage=”fr”>
+          <Text>Départ de la voie 2.</Text>
+        </AlternativeText>
+        <AlternativeText id=”ch:1:AlternativeText:Notice-Hin_1229900-it” version=”any” attributeName=”Text” useForLanguage=”it”>
+          <Text>Partenza dal binario 2.</Text>
+        </AlternativeText>
+        <AlternativeText id=”ch:1:AlternativeText:Notice-Hin_1229900-en” version=”any” attributeName=”Text” useForLanguage=”en”>
+          <Text>Departure on platform 2.</Text>
+        </AlternativeText>
+      </alternativeTexts>
+      <Text lang="de">Abfahrt auf Gleis 2.</Text>
+      <TypeOfNoticeRef ref="ch:1:TypeOfNotice:3" version="any" />
+    </Notice>
+</notices>
+```
+
+```
+<AlternativeText attributeName="Name">
+  <Text lang="it">Train Express Regional</Text>
+</AlternativeText>
+
+```
 
 - [Swiss profile tables](../generated/markdown-examples/AlternativeText.md)
 - [XML Snippet](../generated/xml-snippets/AlternativeText.xml)
