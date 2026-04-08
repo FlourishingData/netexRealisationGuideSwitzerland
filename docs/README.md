@@ -25,11 +25,11 @@ This document describes the way in which the NeTEx standard is specifically appl
 - [Basic concepts of NeTEx](02_basic_concepts.md)
 - [Guiding principles for the profile](03_guiding_principles.md)
 - [File structure, encoding etc](04_files.md)
-- Frames used in the profile
-- Site model
+- [Frames used in the profile](05_frames.md)
+- [Site model](06_stops.md)
 - Services
-- Timetables
-- Common elements
+- [Timetables](08_timetable.md)
+- [Common elements](09_common.md)
 - Special use cases
   - Joining / Splitting und "Durchbindung"
   - ServiceFacilities
