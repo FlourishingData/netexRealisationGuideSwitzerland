@@ -22,6 +22,9 @@ It is important to note that internal or artificially generated IDs should not b
 ID must be globally unique during importation. 
 IDs may also be partially or completely artificially generated. The persistence of ID between exports is then usually not guaranteed. Important business level keys are stored in ele-ments not in IDs (PublicKey, PrivateKey, KeyList). They must be communicated as attrib-ute in the elements.
 
+## Time formatting and journey after midnight
+The time format consists only of the hour, minutes (and seconds) of a 24 hour clock, e.g. '23:55:00'. Times that pass midnight of the current OperatingDay are marked with a DayOffset element. If a ServiceJourney (in a particular Call) runs over midnight, then DayOffset must be set to '1'.
+
 ## FrameDefaults
 With the FrameDefaults we set some basic parameters. When they are not set, we still assume the values that we present in the XML snippet.
 - [Swiss profile tables](generated/markdown-examples/FrameDefaults.md)
