@@ -33,8 +33,8 @@ The time format consists only of the hour, minutes (and seconds) of a 24 hour cl
 
 ## FrameDefaults
 With the FrameDefaults we set some basic parameters. When they are not set, we still assume the values that we present in the XML snippet.
-- [Swiss profile tables](generated/markdown-examples/FrameDefaults.md)
-- [XML Snippet](generated/xml-snippets/FrameDefaults.xml)
+- [Swiss profile tables](../generated/markdown-examples/FrameDefaults.md)
+- [XML Snippet](../generated/xml-snippets/FrameDefaults.xml)
 
 ## AlternativeName
 tbd 5.1
