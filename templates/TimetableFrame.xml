@@ -11,12 +11,14 @@
 					<vehicleJourneys>
 						<!-- ch-usage: expected -->
 						<!-- ch-note: Contains the ServiceJourneys and TemplateServiceJourneys. -->
-						<VehicleJourney id="generatedOrsjyid" version="1">
+						<ServiceJourney id="generatedOrsjyid" version="1">
 							<!-- ch-usage: expected -->
+							<!-- ch-note: ServiceJourney is used for common Journeys.
 							<!-- ch-see -->
-						</VehicleJourney>
+						</ServiceJourney>
 						<TemplateServiceJourney id="generatedOrsjyid1" version="1">
 							<!-- ch-usage: expected -->
+							<!-- ch-note: TemplateServiceJourney is only to be used if a line is serviced at a certain frequency. -->
 							<!-- ch-see -->
 						</TemplateServiceJourney>
 						<TemplateServiceJourney id="generated2" version="1">
