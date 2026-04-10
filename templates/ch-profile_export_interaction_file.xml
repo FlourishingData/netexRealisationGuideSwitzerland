@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.netex.org.uk/netex ../xsd/xsd/NeTEx_publication.xsd"><!-- ch-root -->
-	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
-	<ParticipantRef>CH:BLT</ParticipantRef>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.netex.org.uk/netex ../xsd/xsd/NeTEx_publication.xsd">
+	<!-- ch-root -->
+	<!-- ch-usage: mandatory -->
+	<PublicationTimestamp><!-- ch-usage: mandatory -->2026-03-30T12:00:00</PublicationTimestamp>
+	<ParticipantRef><!-- ch-usage: mandatory -->SKI-Template</ParticipantRef>
 	<dataObjects>
-		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
+		<!-- ch-usage: mandatory -->
+		<CompositeFrame id="ch:1:CompositeFrmae" version="1">
+			<!-- ch-usage: mandatory -->
 			<frames>
-				<TimetableFrame id="ch:1:TimetableFrame:j23" version="any">
+				<!-- ch-usage: mandatory -->
+				<TimetableFrame id="ch:1:TimetableFrame" version="1">
+					<!-- ch-usage: mandatory -->
 					<journeyMeetings>
+						<!-- ch-usage: forbidden -->
+						<!-- ch-note: **TODO** really forbidden? -->
 						<JourneyMeeting id="generated" version="1">
 							<!-- ch-see -->
 							<FromJourneyRef ref="sjyid" versionRef="referenced"/>
@@ -14,8 +22,15 @@
 						</JourneyMeeting>
 					</journeyMeetings>
 					<interchangeRules>
+						<!-- ch-usage: mandatory -->
+						<InterchangeRule id="generated2" version="1">
+							<!-- This is the rule Interchange Rule that is important for the schematron generation -->
+							<!-- ch-usage: mandatory -->
+						</InterchangeRule>
 						<InterchangeRule id="generated" version="1">
-							<!-- ch-see -->
+							<!-- ch-usage: optional -->
+							<!-- ch-note: transfer times between ServiceJourneys (UMSTEIGZ) -->
+							<!-- ch-see InterchangeRule_UMSTEIGZ -->
 						</InterchangeRule>
 					</interchangeRules>
 				</TimetableFrame>
