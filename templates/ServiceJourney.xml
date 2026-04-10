@@ -60,7 +60,7 @@
 								rail
 							</TransportMode>
 							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="any">
-								<!-- ch-usage: optional -->
+								<!-- ch-usage: expected -->
 								<!-- ch-note: **TODO** I am not sure if it is not mandatory for us.-->
 							</TypeOfProductCategoryRef>
 							<TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="any">
