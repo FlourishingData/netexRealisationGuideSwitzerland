@@ -99,7 +99,7 @@
 							<LineRef ref="ch:2:Line:11.IR.90" versionRef="any">
 								<!--ch-usage: mandatory -->
 							</LineRef>
-							<DirectionType><!-- ch-usage: optional --><!-- ch-allowed-enums: inbound outbound --><!-- Allowed are: inbound, outbound -->inbound</DirectionType>
+							<DirectionType><!-- ch-usage: optional --><!-- ch-allowed-enums: inbound outbound --><!-- ch-note: Allowed are: inbound, outbound --></DirectionType>
 							<trainNumbers>
 								<!-- ch-usage: mandatory -->
 								<TrainNumberRef ref="ch:1:TrainNumber:71707" versionRef="1">
