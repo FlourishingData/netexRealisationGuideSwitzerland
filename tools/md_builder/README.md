@@ -51,8 +51,7 @@ These scripts process all XML templates in the templates directory and generate 
 
 The tool recognizes the following comment tags in XML templates:
 
-- `<!-- ch-start: ... -->`: Marks the beginning of the section to process
-- `<!-- ch-stop: ... -->`: Marks the end of the section to process
+- `<!-- ch-root -->`: Marks the element to process (placed within the element)
 - `<!-- ch-usage: mandatory|forbidden|optional|ignored|expected -->`: Specifies usage requirement
 - `<!-- ch-note: ... -->`: Adds a note/description for the element
 - `<!-- ch-notice: ... -->`: Adds a notice for the element
@@ -76,8 +75,7 @@ The generated markdown files contain tables with the following columns:
 Given a template like:
 
 ```xml
-<StopPlace id="ch:1:StopPlace" version="1">
-    <!-- ch-start: StopPlace example -->
+<StopPlace id="ch:1:StopPlace" version="1"><!-- ch-root -->
     <Name>
         <!-- ch-usage: mandatory -->
         <!-- ch-note: The name of the StopPlace -->
@@ -88,7 +86,6 @@ Given a template like:
         <!-- ch-note: DiDok number -->
         8500001
     </PrivateCode>
-    <!-- ch-stop: StopPlace example -->
 </StopPlace>
 ```
 

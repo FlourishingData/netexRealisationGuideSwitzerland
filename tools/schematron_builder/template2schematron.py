@@ -61,8 +61,7 @@ except ImportError:
     sys.exit(1)
 
 # Markers and regexes
-START_MARKER = "ch-start"
-END_MARKER = "ch-stop"
+ROOT_MARKER = "ch-root"
 RE_NOTE = re.compile(r'\bch-note\s*:\s*(.*)', re.IGNORECASE)
 RE_USAGE = re.compile(r'\bch-usage\s*:\s*(\w+)', re.IGNORECASE)
 RE_SEE = re.compile(r'\bch-see\b', re.IGNORECASE)
@@ -79,8 +78,7 @@ KNOWN_CH_COMMANDS = {
     'ch-allowed-enums',
     'ch-deprecated',
     'ch-class-id-must-exist',
-    'ch-start',
-    'ch-stop',
+    'ch-root',
 }
 RE_CH_COMMAND = re.compile(r'\b(ch-[a-zA-Z0-9_-]+)', re.IGNORECASE)
 
@@ -136,21 +134,20 @@ def indent_et(elem, level=0):
             elem.tail = i
 
 
-def extract_regions(text, start_marker=START_MARKER, end_marker=END_MARKER):
-    """Extract regions between start and end markers."""
+def extract_regions(text, root_marker=ROOT_MARKER):
+    """Extract regions containing root markers."""
     lines = text.splitlines(keepends=True)
     results, collecting, buf = [], False, []
     for line in lines:
-        if not collecting and start_marker in line:
-            collecting = True
-            buf.append(line)
-            continue
-        if collecting:
-            buf.append(line)
-            if end_marker in line:
+        if root_marker in line:
+            if collecting:
+                # End of current region
                 results.append(''.join(buf))
                 buf = []
-                collecting = False
+            collecting = True
+            buf.append(line)
+        elif collecting:
+            buf.append(line)
     if collecting and buf:
         results.append(''.join(buf))
     return results
@@ -733,7 +730,7 @@ def main(argv):
     regions = extract_regions(txt)
     if not regions:
         print(
-            'Warning: no regions found between markers; attempting to process entire file',
+            'Warning: no regions found with root markers; attempting to process entire file',
             file=sys.stderr
         )
         regions = [txt]

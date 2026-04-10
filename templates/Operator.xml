@@ -7,12 +7,11 @@
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame" version="any">
 					<organisations>
-						<!-- ch-start -->
-						<Operator id="sboid" version="1">
+												<Operator id="sboid" version="1">
+													<!-- ch-root -->
 							<!-- ch-note: We will use this organisation also in AuthorityRef. The problem is that the sboid can be used only once. -->
 							<!-- ch-usage: mandatory -->
 						</Operator>
-										<!-- ch-stop -->
 
 					</organisations>
 

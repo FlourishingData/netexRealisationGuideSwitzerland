@@ -8,7 +8,7 @@ The `template2schematron.py` script processes XML templates containing special c
 
 ## Features
 
-- **Template Processing**: Extracts regions marked with `<!-- ch-start: -->` and `<!-- ch-stop: -->`
+- **Template Processing**: Extracts regions marked with `<!-- ch-root -->`
 - **Rule Generation**: Creates Schematron rules based on comment annotations
 - **Namespace Support**: Proper handling of NeTEX and Schematron namespaces
 - **Modular Design**: Supports referenced templates for code reuse
@@ -38,7 +38,7 @@ python template2schematron.py \
 
 ### Parameters
 
-- `-t, --template`: Template XML file containing ch-start/ch-stop regions
+- `-t, --template`: Template XML file containing ch-root regions
 - `-x, --xsd`: XSD file (path is stored but not currently used for validation)
 - `-i, --input-folder`: Folder with referenced XML fragment files
 - `-o, --output`: Output Schematron (.sch) file
@@ -82,8 +82,7 @@ The script recognizes the following comment annotations in templates:
 
 ### Basic Annotations
 
-- `<!-- ch-start: description -->`: Marks the beginning of a region to process
-- `<!-- ch-stop: description -->`: Marks the end of a region to process
+- `<!-- ch-root -->`: Marks the element to process (placed within the element)
 - `<!-- ch-note: text -->`: Adds descriptive notes (appears in schematron comments)
 - `<!-- ch-notice: text -->`: Adds notices (treated like ch-note)
 
@@ -114,8 +113,7 @@ Templates should follow this structure:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <RootElement>
-    <!-- ch-start: Example description -->
-    <ChildElement>
+    <ChildElement><!-- ch-root -->
         <!-- ch-usage: mandatory -->
         <!-- ch-note: This element is required -->
         Example content
@@ -124,7 +122,6 @@ Templates should follow this structure:
         <!-- ch-usage: forbidden -->
         <!-- ch-note: This element should not be used -->
     </AnotherElement>
-    <!-- ch-stop: Example description -->
 </RootElement>
 ```
 

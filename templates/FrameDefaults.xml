@@ -4,8 +4,7 @@
 	<ParticipantRef>SKI-Templates</ParticipantRef>
 	<dataObjects>
 		<CompositeFrame id="ch:1:CompositeFrame" version="any">
-			<!-- ch-start -->
-			<FrameDefaults>
+						<FrameDefaults><!-- ch-root -->
 				<!-- ch-usage: expected -->
 				<DefaultLocale>
 					<!-- ch-note: The default locale is German (de) for SBB and Swiss public transport. -->
@@ -15,7 +14,6 @@
 					<DefaultLanguage><!-- ch-usage: mandatory --><!-- ch-note: Is always set to “de” for SKI and Swiss public transport.-->de</DefaultLanguage>
 				</DefaultLocale>
 			</FrameDefaults>
-			<!-- ch-stop -->
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame" version="any">
 				</ResourceFrame>

@@ -9,8 +9,7 @@
 					<typesOfValue>
 						<ValueSet id="ch:1:ValueSet:TypesOfProductCategory" version="1" nameOfClass="TypeOfProductCategory">
 							<values>
-								<!-- ch-start -->
-								<TypeOfProductCategory id="ch:1:TypeOfProductCategory:TER" version="any">
+																<TypeOfProductCategory id="ch:1:TypeOfProductCategory:TER" version="any"><!-- ch-root -->
 									<!-- ch-usage: mandatory -->
 									<alternativeTexts>
 										<!-- ch-note: For each language an AlternativeText is needed -->
@@ -30,7 +29,6 @@
 									<Name lang="de"><!-- ch-usage: mandatory -->TER</Name>
 									<ShortName><!-- ch-usage: mandatory -->TER</ShortName>
 								</TypeOfProductCategory>
-								<!-- ch-stop -->
 							</values>
 						</ValueSet>
 					</typesOfValue>

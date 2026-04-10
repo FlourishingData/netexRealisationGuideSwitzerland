@@ -7,8 +7,7 @@
 			<FrameDefaults/>
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame" version="any"/>
-				<!-- ch-start -->
-				<SiteFrame id="ch:1:SiteFrame" version="any">
+								<SiteFrame id="ch:1:SiteFrame" version="any"><!-- ch-root -->
 					<!-- ch-usage: expected -->
 					<!-- ch-note: **TODO** most documenation from the RG is missing here. Pls note that with expection from ch-start and ch-stop. All other annotations are to be put within the element -->
 					<topographicPlaces>
@@ -71,7 +70,6 @@
 						</SiteFacilitySet>
 					</siteFacilitySets>
 				</SiteFrame>
-				<!-- ch-stop -->
 			</frames>
 		</CompositeFrame>
 	</dataObjects>

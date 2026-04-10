@@ -21,14 +21,12 @@
 					<notices>
 						<Notice id="ch:1:Notice:Hin-1229900" version="1">
 							<alternativeTexts>
-								<!-- ch-start -->
-								<AlternativeText id="ch:1:AlternativeText:Notice-Hin_1229900-fr" version="1" attributeName="Text" useForLanguage="fr">
+																<AlternativeText id="ch:1:AlternativeText:Notice-Hin_1229900-fr" version="1" attributeName="Text" useForLanguage="fr"><!-- ch-root -->
 									<!-- ch-usage: mandatory -->
 									<!-- ch-note: -->
 									<!-- ch-attrs: id version attributeName useForLanguage -->
 									<Text><!-- ch-usage: mandatory -->Départ de la voie 2.</Text>
 								</AlternativeText>
-								<!-- ch-stop -->
 								<AlternativeText id="ch:1:AlternativeText:Notice-Hin_1229900-it" version="1" attributeName="Text" useForLanguage="it">
 									<Text>Partenza dal binario 2.</Text>
 								</AlternativeText>

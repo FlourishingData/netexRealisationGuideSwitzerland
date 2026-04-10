@@ -5,8 +5,7 @@
 	<dataObjects>
 		<CompositeFrame id="ch:1:CompositeFrame" version="any">
 			<frames>
-				<!-- ch-start -->
-				<ResourceFrame id="ch:1:ResourceFrame" version="any">
+								<ResourceFrame id="ch:1:ResourceFrame" version="any"><!-- ch-root -->
 					<!-- ch-usage: mandatory -->
 					<responsibilitySets>
 						<!-- ch-usage: mandatory -->
@@ -100,7 +99,6 @@
 						</ServiceFacilitySet>
 					</serviceFacilitySets>
 				</ResourceFrame>
-				<!-- ch-stop -->
 			</frames>
 		</CompositeFrame>
 	</dataObjects>

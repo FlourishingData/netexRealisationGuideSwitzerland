@@ -318,100 +318,36 @@ def parse_template_file(file_path, xsd_type_info):
             default_ns = nsmap[None]
             ns['default'] = default_ns
         
-        # Find ch-start and ch-stop comments
+        # Find ch-root comments
         comments = root.xpath('//comment()', namespaces=ns)
         
-        start_idx = None
-        stop_idx = None
+        root_element = None
         
-        for i, comment in enumerate(comments):
+        for comment in comments:
             text = comment.text.strip() if comment.text else ''
-            if 'ch-start' in text or 'ch-start'== text:
-                start_idx = i
-            elif 'ch-stop' in text or 'ch-stop'== text:
-                stop_idx = i
+            if 'ch-root' in text or 'ch-root' == text:
+                # Find the parent element of this comment
+                root_element = comment.getparent()
                 break
         
-        # If no ch-start/ch-stop found, check if this is a ch-profile template
+        # If no ch-root found, check if this is a ch-profile template
         # ch-profile templates may have comments at root level
-        # Check if this is a ch-profile template
-        # ch-profile templates have ch-start/ch-stop at root level and contain ch-see elements
         has_ch_see = any('ch-see' in (comment.text.strip() if comment.text else '') 
                                for comment in comments)
         
-        if has_ch_see and start_idx is not None and stop_idx is not None:
-            # This is a ch-profile template with root-level markers
-            # For ch-profile templates, we want to process the entire document structure
-            # but only include elements that have ch-see comments
-            start_idx = None  # Force the ch-profile processing path
+        if not root_element and has_ch_see:
+            # This is a ch-profile template, use root as the element
+            root_element = root
         
-        if start_idx is None or stop_idx is None:
-            if has_ch_see:
-                # This is a ch-profile template, process the whole document
-                pass  # Continue processing
-            else:
-                print(f"Warning: No ch-start or ch-stop found in {file_path}")
-                return None
+        if root_element is None:
+            print(f"Warning: No ch-root found in {file_path}")
+            return None
         
-        # Get the elements between start and stop
+        # Get the elements from the root element
         elements_data = []
         
-        if start_idx is not None and stop_idx is not None:
-            # Find the parent element that contains our comments
-            start_comment = comments[start_idx]
-            stop_comment = comments[stop_idx]
-            
-            # Get the common ancestor
-            start_parent = start_comment.getparent()
-            stop_parent = stop_comment.getparent()
-            
-            # Find common ancestor
-            common_ancestor = start_parent
-            while common_ancestor is not None:
-                if common_ancestor == stop_parent or stop_parent in common_ancestor.xpath('descendant::*'):
-                    break
-                common_ancestor = common_ancestor.getparent()
-            
-            if common_ancestor is None:
-                common_ancestor = root
-            
-            # Try to find the most specific element between the markers
-            # Look for the first element after the start comment
-            found_specific_element = False
-            
-            # First, check if the start comment's next sibling is an element (common case)
-            next_sibling = start_comment.getnext()
-            if next_sibling is not None and hasattr(next_sibling, 'tag'):
-                # Check if this element comes before the stop comment
-                current = next_sibling
-                while current is not None and current != stop_comment:
-                    if hasattr(current, 'tag'):
-                        common_ancestor = current
-                        found_specific_element = True
-                        break
-                    current = current.getnext()
-            
-            # If not found, try the original approach
-            if not found_specific_element:
-                for node in list(common_ancestor):
-                    if isinstance(node, etree._Comment):
-                        continue
-                    if hasattr(node, 'tag'):
-                        # Check if this node is the first element after the start comment
-                        prev_node = node.getprevious()
-                        if prev_node is not None and prev_node == start_comment:
-                            common_ancestor = node
-                            found_specific_element = True
-                            break
-            
-            # Debug output (commented out by default)
-            # if found_specific_element:
-            #     print(f"Found specific element: {local_name(common_ancestor.tag)}")
-            # else:
-            #     print("Using common ancestor")
-        else:
-            # For ch-profile templates, use the root as common ancestor
-            common_ancestor = root
+        # Use the root element we found
+        common_ancestor = root_element
         
         # Process elements in the range
         processed_elements = set()
@@ -480,8 +416,9 @@ def parse_template_file(file_path, xsd_type_info):
                 if is_referenced:
                     sub_markers = 'ln' + sub_markers
             
-            # Use note for description
-            description = note
+            # Keep note separate from description
+            # description = note  # REMOVED: This was incorrectly using note as description
+            description = ''  # Start with empty description, will be filled from XSD or other sources
             
             # Add deprecated notice if needed
             if is_deprecated:
@@ -506,6 +443,7 @@ def parse_template_file(file_path, xsd_type_info):
                 'card': card,
                 'type': xsd_type,
                 'description': description,
+                'note': note,  # Add note to data structure
                 'is_referenced': is_referenced,
                 'referenced_name': see_reference or elem_name,
                 'level': level,
@@ -522,14 +460,9 @@ def parse_template_file(file_path, xsd_type_info):
                         process_element(child, level + 1)
         
         # Start processing from the common ancestor
-        if start_idx is not None and stop_idx is not None:
-            # Normal processing with ch-start/ch-stop markers
-            # Process the common ancestor element itself
-            if hasattr(common_ancestor, 'tag') and not isinstance(common_ancestor, etree._Comment):
-                process_element(common_ancestor)
-        else:
-            # ch-profile template processing - process the root element
-            process_element(root)
+        # Process the common ancestor element itself
+        if hasattr(common_ancestor, 'tag') and not isinstance(common_ancestor, etree._Comment):
+            process_element(common_ancestor)
         
         return elements_data
     
@@ -556,8 +489,8 @@ def generate_markdown_table(data, filename, xsd_type_info):
         else:
             child_elements.append(item)
     
-    # Sort child elements by level and name
-    child_elements.sort(key=lambda x: (x['level'], x['element']))
+    # Maintain original document order instead of sorting
+    # child_elements.sort(key=lambda x: (x['level'], x['element']))
     
     markdown = f"# {filename}\n\n"
     markdown += "| Sub | Element | Usage | Card | Type | Description | Note |\n"
@@ -611,8 +544,8 @@ def generate_markdown_table(data, filename, xsd_type_info):
             link_name = item['referenced_name']
             element = f"[{element}]({link_name}.md)"
         
-        # Use description for XSD/type info, note for ch-note content only
-        display_note = note if note and 'ch-note:' in note else ''
+        # Use the note from the data structure (which contains ch-note content)
+        display_note = item.get('note', '')
         markdown += f"| {sub} | {element} | {usage} | {card} | {xsd_type} | {description} | {display_note} |\n"
     
     # Process attributes

@@ -4,11 +4,11 @@ A tool for extracting XML snippets from NeTEx templates with special comment ann
 
 ## Overview
 
-The `build_xml_snippets.py` tool extracts XML snippets from templates that contain special comment markers (`<!-- ch-start: -->` and `<!-- ch-stop: -->`). It removes most ch-annotations while preserving important documentation and excluding elements marked as forbidden or ignored.
+The `build_xml_snippets.py` tool extracts XML snippets from templates that contain special comment markers (`<!-- ch-root -->`). It removes most ch-annotations while preserving important documentation and excluding elements marked as forbidden or ignored.
 
 ## Features
 
-- **Extracts snippets** between `<!-- ch-start: -->` and `<!-- ch-stop: -->` markers
+- **Extracts snippets** containing `<!-- ch-root -->` markers
 - **Removes ch-annotations** except for `ch-note:` and `ch-notice:` (converted to regular comments)
 - **Excludes forbidden/ignored elements** marked with `ch-usage: forbidden`, `ch-usage: ignored`, `usage: forbidden`, or `usage: ignored`
 - **Converts versionRef to version** for reference elements (e.g., `<ElementRef versionRef="1">` becomes `<ElementRef version="1">`)
@@ -65,8 +65,7 @@ for f in templates/*.xml; do
 The tool expects XML templates with the following structure:
 
 ```xml
-<!-- ch-start: Example description -->
-<Element>
+<Element><!-- ch-root -->
     <!-- ch-note: Important documentation to preserve -->
     <ChildElement>content</ChildElement>
     
@@ -75,7 +74,6 @@ The tool expects XML templates with the following structure:
     
     <AnotherElement><!-- ch-usage: ignored -->also excluded</AnotherElement>
 </Element>
-<!-- ch-stop: example stops here -->
 ```
 
 ## Output Format
@@ -116,7 +114,7 @@ The tool generates cleaned XML snippets:
 ## Error Handling
 
 The tool provides informative error messages for:
-- Missing ch-start/ch-stop markers
+- Missing ch-root markers
 - XML parsing errors
 - Files with no valid XML content
 - Cases where all content is excluded

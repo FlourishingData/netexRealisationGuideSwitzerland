@@ -5,8 +5,7 @@
 	<dataObjects>
 		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
 			<frames>
-				<!-- ch-start -->
-				<ServiceFrame id="ch:1:ServiceFrame:j23" version="any">
+								<ServiceFrame id="ch:1:ServiceFrame:j23" version="any"><!-- ch-root -->
 					<!-- ch-note: A minimal ServiceFrame must be present in all timetable files. TODO: analyse which part is in the general one.-->
 					<!-- ch-note: TODO how would we describe additional id and which ones are mandatory?-->
 					<directions>
@@ -84,7 +83,6 @@
 						</Notice>
 					</notices>
 				</ServiceFrame>
-				<!-- ch-stop -->
 			</frames>
 		</CompositeFrame>
 	</dataObjects>

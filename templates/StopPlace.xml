@@ -9,8 +9,7 @@
 				<ResourceFrame id="ch:1:ResourceFrame" version="any"/>
 				<SiteFrame id="ch:1:SiteFrame" version="any">
 					<stopPlaces>
-						<!-- ch-start -->
-						<StopPlace id="ch:1:sloid:7000" version="any">
+												<StopPlace id="ch:1:sloid:7000" version="any"><!-- ch-root -->
 							<!-- ch-usage: mandatory -->
 							<!-- ch-note: **todo** all texts are missing in this file yet -->
 							<keyList>
@@ -54,7 +53,6 @@
 								</Quay>
 							</quays>
 						</StopPlace>
-						<!-- ch-stop -->
 					</stopPlaces>
 				</SiteFrame>
 			</frames>

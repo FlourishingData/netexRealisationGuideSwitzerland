@@ -7,19 +7,19 @@
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame" version="any">
 					<serviceFacilitySets>
-						<!-- ch-start -->
-						<ServiceFacilitySet id="generated" version="1">
+												<ServiceFacilitySet id="generated" version="1">
+													<!-- ch-root -->
+
 							<!-- ch-note: List of ServiceFacility. Be careful: not all are supported. Consult profile. Make sure to not generate identical ServiceFacilitySets. Reuse them. -->
-							<NuisanceFacilityList>animalsAllowed</NuisanceFacilityList>
-							<SanitaryFacilityList>toilet</SanitaryFacilityList>
-							<CouchetteFacilityList>wheelchair</CouchetteFacilityList>
-							<GroupBookingFacility>groupsAllowed</GroupBookingFacility>
+							<NuisanceFacilityList><!-- ch-usage: optional -->animalsAllowed</NuisanceFacilityList>
+							<SanitaryFacilityList><!-- ch-usage: optional -->toilet</SanitaryFacilityList>
+							<CouchetteFacilityList><!-- ch-usage: optional -->wheelchair</CouchetteFacilityList>
+							<GroupBookingFacility><!-- ch-usage: optional -->groupsAllowed</GroupBookingFacility>
 							<accommodations>
-								<!-- usage: forbidden -->
+								<!-- ch-usage: forbidden -->
 								<AccommodationRef ref="notUsed" versionRef="none"/>
 							</accommodations>
 						</ServiceFacilitySet>
-						<!-- ch-stop -->
 					</serviceFacilitySets>
 				</ResourceFrame>
 			</frames>

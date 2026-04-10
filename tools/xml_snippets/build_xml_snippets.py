@@ -47,6 +47,7 @@ def remove_ch_annotations(text):
     
     for line in lines:
         stripped = line.strip()
+
         
         # Keep ch-note content (remove the prefix)
         if stripped.startswith('<!-- ch-note:'):
@@ -61,7 +62,15 @@ def remove_ch_annotations(text):
             cleaned_lines.append(line)
         # Remove all other ch-comments
         elif stripped.startswith('<!-- ch-') or re.match(r'<!--\s*usage:', stripped):
-            continue
+            # Check if there's text content after the comment on the same line
+            comment_end_match = re.search(r'-->', stripped)
+            if comment_end_match:
+                comment_end = comment_end_match.end()
+                text_after_comment = stripped[comment_end:].strip()
+                if text_after_comment:
+                    # Preserve the text content after the comment
+                    cleaned_lines.append(text_after_comment)
+            # Don't append the comment itself
         else:
             cleaned_lines.append(line)
     
@@ -99,7 +108,7 @@ def should_exclude_element(element):
 
 def process_element(element, parent_excluded=False):
     """Process an element and its children, excluding forbidden/ignored elements"""
-    print(f"DEBUG: process_element called with: {type(element)}")
+
     if parent_excluded:
         # If parent is excluded, all children are excluded too
         return None
@@ -110,15 +119,15 @@ def process_element(element, parent_excluded=False):
     
     # Create a copy of the element to avoid modifying the original
     if not hasattr(element, 'tag'):
-        print(f"DEBUG: Element is not a proper element: {type(element)}")
+
         return None
     
-    print(f"DEBUG: Creating element {element.tag}")
+
     new_element = etree.Element(element.tag, attrib=element.attrib)
     
 def process_element_with_cleanup(element, parent_excluded=False):
     """Process an element and its children, excluding forbidden/ignored elements and removing ch-annotations"""
-    # Skip comments
+    # Skip comments (but preserve their tail text if they're children of an element)
     if isinstance(element, etree._Comment):
         return None
     
@@ -158,6 +167,13 @@ def process_element_with_cleanup(element, parent_excluded=False):
                     content = re.sub(r'ch-note:\s*', '', comment_text)
                     new_comment = etree.Comment(f' {content} ')
                     new_element.append(new_comment)
+                # Preserve tail text of ALL comments (not just ch-note)
+                if child.tail and child.tail.strip():
+                    # Add the tail text as text content of the new element
+                    if new_element.text:
+                        new_element.text += ' ' + child.tail.strip()
+                    else:
+                        new_element.text = child.tail.strip()
             continue
         elif isinstance(child, etree._Element):
             processed_child = process_element_with_cleanup(child, parent_excluded=False)
@@ -177,59 +193,68 @@ def process_element_with_cleanup(element, parent_excluded=False):
                     else:
                         new_element[-1].tail = child.tail.strip()
     
+
+    
+    # Preserve the element's own tail text (text after the element's closing tag)
+    if hasattr(element, 'tail') and element.tail and element.tail.strip():
+        new_element.tail = element.tail.strip()
+    
     return new_element
 
 def extract_snippet_from_template(file_path):
-    """Extract snippet from a template file between ch-start and ch-stop markers"""
+    """Extract snippet from a template file using ch-root marker"""
     try:
         # Read the file content
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         
-        # Find ch-start and ch-stop markers (both old and new formats)
-        start_marker_old = '<!-- ch-start:'
-        start_marker_new = '<!-- ch-start -->'
-        end_marker_old = '<!-- ch-stop:'
-        end_marker_new = '<!-- ch-stop -->'
+        # Find ch-root marker
+        root_marker = '<!-- ch-root -->'
+        root_idx = content.find(root_marker)
         
-        start_idx = content.find(start_marker_old)
-        if start_idx == -1:
-            start_idx = content.find(start_marker_new)
-            
-        end_idx = content.find(end_marker_old)
-        if end_idx == -1:
-            end_idx = content.find(end_marker_new)
-        
-        if start_idx == -1 or end_idx == -1:
-            print(f"Warning: No ch-start or ch-stop found in {file_path}")
+        if root_idx == -1:
+            print(f"Warning: No ch-root found in {file_path}")
             return None
         
-        # Extract the region between markers (including the markers)
-        # Determine which marker format was found
-        if end_idx != -1:
-            if content.find(end_marker_old, end_idx) == end_idx:
-                snippet_content = content[start_idx:end_idx + len(end_marker_old)]
-            else:
-                snippet_content = content[start_idx:end_idx + len(end_marker_new)]
-        else:
-            snippet_content = ""
-        
-        # Find the end of the ch-stop comment
-        stop_comment_end = content.find('-->', end_idx)
-        if stop_comment_end != -1:
-            snippet_content = content[start_idx:stop_comment_end + 3]  # Include -->
-        
-        # Remove ch-start and ch-stop comments to avoid parsing issues (both formats)
-        snippet_content = re.sub(r'<!-- ch-start:[^>]*-->', '', snippet_content)
-        snippet_content = re.sub(r'<!-- ch-start -->', '', snippet_content)
-        snippet_content = re.sub(r'<!-- ch-stop:[^>]*-->', '', snippet_content)
-        snippet_content = re.sub(r'<!-- ch-stop -->', '', snippet_content)
-        snippet_content = snippet_content.strip()
-        
-        # Parse the XML while preserving namespace information
+        # Find the parent element of the ch-root comment
+        # Parse the content to find the element containing the comment
         try:
-            # Extract namespace information from the original snippet
-            # Look for xmlns in the snippet content itself
+            # Remove XML declaration if present to avoid parsing issues
+            content_no_decl = re.sub(r'^\s*<\?xml\s+[^>]+>\s*', '', content, flags=re.IGNORECASE | re.MULTILINE)
+            
+
+            
+            # Wrap content in a temporary root for parsing
+            wrapped_content = f'<__temp_root__>{content_no_decl}</__temp_root__>'
+            temp_root = etree.fromstring(wrapped_content.encode('utf-8'))
+            
+            # Find the comment with ch-root
+            root_comment = None
+            for comment in temp_root.xpath('//comment()'):
+                if comment.text and 'ch-root' in comment.text:
+                    root_comment = comment
+                    break
+            
+            if root_comment is None:
+                print(f"Warning: Could not find ch-root comment in {file_path}")
+                return None
+            
+            # Get the parent element of the comment
+            parent_element = root_comment.getparent()
+            if parent_element is None:
+                print(f"Warning: ch-root comment has no parent element in {file_path}")
+                return None
+            
+            # Convert the parent element to XML string
+            snippet_content = etree.tostring(parent_element, encoding='unicode')
+            
+        except Exception as e:
+            print(f"Warning: Error parsing XML in {file_path}: {e}")
+            return None
+        
+        # Process the element tree to exclude forbidden/ignored elements and remove ch-annotations
+        try:
+            # Extract namespace information from the snippet content
             ns_match = re.search(r'<([^>]+)\s+xmlns="([^"]+)"', snippet_content)
             default_ns = None
             if ns_match:
@@ -240,7 +265,7 @@ def extract_snippet_from_template(file_path):
                 if full_ns_match:
                     default_ns = full_ns_match.group(2)
             
-            # Wrap in a root element with the same namespace for parsing
+            # Parse the snippet content
             if default_ns:
                 wrapped = f'<__root__ xmlns="{default_ns}">{snippet_content}</__root__>'
             else:
@@ -260,6 +285,23 @@ def extract_snippet_from_template(file_path):
             
             # Process the element tree to exclude forbidden/ignored elements and remove ch-annotations
             processed_root = process_element_with_cleanup(snippet_root)
+            
+            # Handle tail text of the root element
+            # Check if the root element has text content that should be preserved
+            if snippet_root.text and snippet_root.text.strip():
+                # The root element has direct text content
+                direct_text = snippet_root.text.strip()
+
+            
+            # Also check for tail text (text after the element's closing tag)
+            root_tag_name = snippet_root.tag
+            if f'</{root_tag_name}>' in snippet_content:
+                # Find the position after the root element's closing tag
+                closing_tag_end = snippet_content.find(f'</{root_tag_name}>') + len(f'</{root_tag_name}>')
+                tail_text = snippet_content[closing_tag_end:].strip()
+                if tail_text:
+
+                    processed_root.tail = tail_text
             
             if processed_root is None:
                 print(f"Warning: All content excluded in {file_path}")

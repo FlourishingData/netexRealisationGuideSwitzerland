@@ -7,14 +7,11 @@
 			<frames>
 				<ResourceFrame id="ch:1:ResourceFrame" version="any">
 					<responsibilitySets>
-										<!-- ch-start -->
-
-						<ResponsibilitySet id="ch:1:ResponsbilitySet-gen" version="1">
+																<ResponsibilitySet id="ch:1:ResponsbilitySet-gen" version="1"><!-- ch-root -->
 							<!-- ch-note: Each combination of Authority and Operator needs a ResponsibilitySet. -->
 							<!-- ch-usage: mandatory -->
 							<!-- ch-see -->
 						</ResponsibilitySet>
-																<!-- ch-stop -->
 					</responsibilitySets>
 
 				</ResourceFrame>

@@ -7,8 +7,7 @@
 			<frames>
 				<TimetableFrame id="ch:1:TimetableFrame:j23" version="any">
 					<vehicleJourneys>
-						<!-- ch-start -->
-						<TemplateServiceJourney id="generated" version="1">
+												<TemplateServiceJourney id="generated" version="1"><!-- ch-root -->
 							<!-- ch-note: ServiceJourney is used for common Journeys. -->
 							<!-- ch-attrs: id version -->
 							<validityConditions>
@@ -165,7 +164,6 @@
 								</HeadwayJourneyGroup>
 							</frequencyGroups>
 						</TemplateServiceJourney>
-						<!-- ch-stop -->
 					</vehicleJourneys>
 				</TimetableFrame>
 			</frames>

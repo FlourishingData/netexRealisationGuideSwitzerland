@@ -11,23 +11,26 @@
 					<stopPlaces>
 						<StopPlace id="ch:1:sloid:7000" version="any">
 							<quays>
-								<!-- ch-start -->
-								<Quay id="ch:1:sloid:7000:5:9" version="any">
+																<Quay id="ch:1:sloid:7000:5:9" version="any">
+																	<!-- ch-root -->
 									<keyList>
+										<!-- ch-usage: mandatory -->
 										<KeyValue>
-											<Key>SLOID</Key>
-											<Value>ch:1:sloid:7000:5:9</Value>
+											<!-- ch-usage: mandatory -->
+											<Key><!-- ch-usage: mandatory -->SLOID</Key>
+											<Value><!-- ch-usage: mandatory -->ch:1:sloid:7000:5:9</Value>
 										</KeyValue>
 									</keyList>
 									<Centroid>
+										<!-- ch-usage: mandatory -->
 										<Location>
-											<Longitude>7.43913088992</Longitude>
-											<Latitude>46.94883228914</Latitude>
-											<Altitude>540.2</Altitude>
+											<!-- ch-usage: mandatory -->
+											<Longitude><!-- ch-usage: mandatory -->7.43913088992</Longitude>
+											<Latitude><!-- ch-usage: mandatory -->46.94883228914</Latitude>
+											<Altitude><!-- ch-usage: mandatory -->540.2</Altitude>
 										</Location>
 									</Centroid>
 								</Quay>
-								 <!-- ch-stop -->
 							</quays>
 						</StopPlace>
 					</stopPlaces>

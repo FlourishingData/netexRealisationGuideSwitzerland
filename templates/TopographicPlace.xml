@@ -9,15 +9,16 @@
 				<ResourceFrame id="ch:1:ResourceFrame" version="any"/>
 				<SiteFrame id="ch:1:SiteFrame" version="any">
 					<topographicPlaces>
-						 <!-- ch-start -->
-						<TopographicPlace id="ch:1:TopoGraphicPlace:CH-BE" version="any">
+						 						<TopographicPlace id="ch:1:TopoGraphicPlace:CH-BE" version="any">
+													<!-- ch-root -->
+													<!-- ch-usage: mandatory -->
 							<Descriptor>
-								<Name>Bern</Name>
-								<ShortName>BE</ShortName>
+								<!-- ch-usage: mandatory -->
+								<Name><!-- ch-usage: mandatory -->Bern</Name>
+								<ShortName><!-- ch-usage: mandatory -->BE</ShortName>
 							</Descriptor>
-							<TopographicPlaceType>county</TopographicPlaceType>
+							<TopographicPlaceType><!-- ch-usage: mandatory -->county</TopographicPlaceType>
 						</TopographicPlace>
-						<!-- ch-stop -->
 					</topographicPlaces>
 				</SiteFrame>
 			</frames>

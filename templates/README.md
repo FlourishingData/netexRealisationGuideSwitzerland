@@ -18,8 +18,7 @@ Each template is a valid NeTEx XML file with special comment annotations that de
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<RootElement xmlns="http://www.netex.org.uk/netex">
-    <!-- ch-start -->
+<RootElement xmlns="http://www.netex.org.uk/netex"><!-- ch-root -->
     <!-- ch-note: Description of the template -->
     <ChildElement>
         <!-- ch-usage: mandatory|forbidden|optional|ignored|expected -->
@@ -27,7 +26,6 @@ Each template is a valid NeTEx XML file with special comment annotations that de
         <!-- Other annotations... -->
         Content
     </ChildElement>
-    <!-- ch-stop -->
 </RootElement>
 ```
 
@@ -35,8 +33,7 @@ Each template is a valid NeTEx XML file with special comment annotations that de
 
 ### Region Markers
 
-- `<!-- ch-start -->`: Marks the beginning of a processing region
-- `<!-- ch-stop -->`: Marks the end of a processing region
+- `<!-- ch-root -->`: Marks the element to process (placed within the element)
 
 ### Documentation Annotations
 
@@ -109,8 +106,7 @@ These are referenced by top-level templates and define specific elements:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<SimpleElement xmlns="http://www.netex.org.uk/netex" id="ch:example:Simple:1" version="1">
-    <!-- ch-start -->
+<SimpleElement xmlns="http://www.netex.org.uk/netex" id="ch:example:Simple:1" version="1"><!-- ch-root -->
     
     <!-- Mandatory child element -->
     <RequiredChild>
@@ -133,7 +129,6 @@ These are referenced by top-level templates and define specific elements:
         Forbidden content
     </ForbiddenChild>
     
-    <!-- ch-stop -->
 </SimpleElement>
 ```
 

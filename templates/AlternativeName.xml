@@ -9,15 +9,13 @@
 					<organisations>
 						<Operator id="sboid" version="1">
 							<alternativeNames>
-								<!-- ch-start -->
-								<AlternativeName>
+																<AlternativeName><!-- ch-root -->
 									<!-- ch-note: In some cases we need translations or alias of the Name element. This is done with AlternativeName. -->
 									<!-- ch-usage: mandatory -->
 									<NameType><!-- ch-allowed-enums: alias translation -->alias</NameType>
 									<TypeOfName><!-- ch-usage: optional-->offical</TypeOfName>
 									<Name lang="de"><!-- ch-usage: mandatory --><!-- ch-attrs: lang -->Die Übersetzung des Namens.</Name>
 								</AlternativeName>
-								<!-- ch-stop -->
 							</alternativeNames>
 						</Operator>
 					</organisations>
