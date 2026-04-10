@@ -112,6 +112,10 @@
 									<!-- ch-usage: mandatory -->
 								</TrainNumberRef>
 							</trainNumbers>
+							<Destination>
+								<!-- ch-usage: expected -->
+								<PointRef version="1" ref="ch:1:Point:12345"/>
+							</Destination>
 							<passingTimes>
 								<!-- ch-usage: expected -->
 								<TimetabledPassingTime id="generated" version="1">
@@ -123,10 +127,39 @@
 							<calls>
 								<!-- ch-usage: forbidden -->
 							</calls>
-              <TemplateVehicleJourneyType>
-                <!-- ch-usage: expected -->
-                <!-- ch-allowed-enums: rhythmic headway -->
-              </TemplateVehicleJourneyType>
+              				<TemplateVehicleJourneyType>
+                				<!-- ch-usage: expected -->
+                				<!-- ch-allowed-enums: rhythmic headway -->
+             				</TemplateVehicleJourneyType>
+							<frequencyGroups>
+								<!-- ch-usage: mandatory -->
+								<!-- ch-note: We strictly map one JOURNEY FREQUENCY per SERVICE JOURNEY. -->
+								<RhythmicalJourneyGroup version="any" id="ch:1:RhythmicalJourneyGroup:0253">
+									<!-- ch-usage: expected -->
+									<Name>Regular Interval service between 10am and 17:00 pm<!-- ch-usage: optional --><!-- ch-note: TODO - wanted? more advice on how to handle language? --></Name>
+									<Description>At 20 &amp; 45 Minutes past the hour<!-- ch-usage: optional --></Description>
+									<FirstDepartureTime>10:00:00<!-- ch-usage: mandatory --></FirstDepartureTime>
+									<LastDepartureTime>17:00:00<!-- ch-usage: mandatory --></LastDepartureTime>
+									<timebands>
+										<!-- ch-usage: optional -->
+										<TimebandRef version="any" ref="hde:TM_20"/>
+									</timebands>
+								</RhythmicalJourneyGroup>
+								<HeadwayJourneyGroup version="any" id="ch:1:HeadwayJourneyGroup:432">
+									<!-- ch-usage: optional -->
+									<Name>Regular Interval service between 12am and 18:00 pm<!-- ch-usage: optional --></Name>
+									<Description>About every 20 minutes<!-- ch-usage: optional --></Description>
+									<FirstDepartureTime>12:00:00<!-- ch-usage: mandatory --></FirstDepartureTime>
+									<LastDepartureTime>18:00:00<!-- ch-usage: mandatory --></LastDepartureTime>
+									<ScheduledHeadwayInterval>PT20M<!-- ch-usage: mandatory --></ScheduledHeadwayInterval>
+									<HeadwayDisplay>
+										<!-- ch-usage: optional -->
+										<!-- ch-allowed-enums: displayPassingTimesOnly displayInsteadOfPassingTimes displayAsWellAsPassingTimes -->
+										<!-- ch-note: Allowed values: displayPassingTimesOnly displayInsteadOfPassingTimes displayAsWellAsPassingTimes. We only export displayPassingTimesOnly.-->
+										DisplayInsteadOfPassingTimes
+									</HeadwayDisplay>
+								</HeadwayJourneyGroup>
+							</frequencyGroups>
 						</TemplateServiceJourney>
 						<!-- ch-stop -->
 					</vehicleJourneys>
