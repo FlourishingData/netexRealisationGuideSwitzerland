@@ -3,12 +3,12 @@
 	<PublicationTimestamp>2026-04-10T12:00:00</PublicationTimestamp>
 	<ParticipantRef>CH:BLT</ParticipantRef>
 	<dataObjects>
-		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
+		<CompositeFrame id="CH:BLT:Composite:50_110" version="1">
 			<frames>
-				<TimetableFrame id="ch:1:TimetableFrame:j23" version="any">
+				<TimetableFrame id="ch:1:TimetableFrame:j23" version="1">
 					<vehicleJourneys>
-												<TemplateServiceJourney id="generated" version="1"><!-- ch-root -->
-							<!-- ch-note: ServiceJourney is used for common Journeys. -->
+						<TemplateServiceJourney id="generated" version="1"><!-- ch-root -->
+							<!-- ch-note: TemplateServiceJourney is used for repeating SERVICE JOURNEYs. -->
 							<!-- ch-attrs: id version -->
 							<validityConditions>
 								<!-- ch-usage: expected -->
@@ -28,7 +28,7 @@
 							</validityConditions>
 							<keyList>
 								<!-- ch-usage: mandatory -->
-								<!-- ch-note: KEY LIST with the KEY VALUEs beloning to the SERVICE JOURNEY. Will contain the SJYID. -->
+								<!-- ch-note: KEY LIST with the KEY VALUEs belonging to the repeating SERVICE JOURNEYs. Will contain the SJYID. -->
 								<KeyValue>
 									<!-- ch-usage: mandatory -->
 									<Key><!-- ch-usage: mandatory -->SJYID</Key>
@@ -40,7 +40,7 @@
 								<!-- ch-note: Used to indicate Facility changes. -->
 								<facilities>
 									<!-- ch-usage: optional -->
-									<Facility id="ch:1:facility:f1" version="any" order="1">
+									<Facility id="ch:1:facility:f1" version="1" order="1">
 										<!-- ch-usage: optional -->
 										<!-- ch-see -->
 										<validityConditions>
@@ -59,7 +59,7 @@
 								<!-- ch-usage: optional -->
 								rail
 							</TransportMode>
-							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="any"><!-- ch-usage: optional --></TypeOfProductCategoryRef>
+							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="any"><!-- ch-usage: expected --></TypeOfProductCategoryRef>
 							<TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="any"><!-- ch-usage: optional --></TypeOfServiceRef>
 							<noticeAssignments>
 								<!-- ch-usage: optional -->
@@ -74,8 +74,7 @@
 							</noticeAssignments>
 							<occupancies>
 								<!-- ch-usage: optional --> 
-								<!-- ch-note: TODO - do we want that, new feature V2.0 ? -->
-								<OccupancyView>
+								<OccupancyView id="generated" version="1">
 									<!-- ch-usage: optional -->
 									<!-- ch-see -->
 								</OccupancyView>
@@ -88,12 +87,12 @@
 							</ServiceAlteration>
 							<DepartureTime>
 								<!-- ch-usage: optional -->
-                <!-- ch-note: TODO - does this make sense given that repeated journeys are described ? -->
+                				<!-- ch-note: **TODO** - does this make sense given that repeated journeys are described ? -->
 								06:21:00
 							</DepartureTime>
-              <DepartureTimeOffset>
+              				<DepartureTimeOffset>
 								<!-- ch-usage: optional -->
-                <!-- ch-note: TODO - same question as above -->
+                				<!-- ch-note: **TODO** - same question as above -->
 								0
 							</DepartureTimeOffset>
 							<LineRef ref="ch:2:Line:11.IR.90" versionRef="any">
@@ -102,7 +101,7 @@
 							<DirectionType>
 								<!-- ch-usage: optional -->
 								<!-- ch-allowed-enums: inbound outbound -->
-								<!-- Allowed are: inbound, outbound -->
+								<!-- ch-note: Allowed are: inbound, outbound -->
 								inbound
 							</DirectionType>
 							<trainNumbers>
@@ -125,6 +124,12 @@
 							</passingTimes>
 							<calls>
 								<!-- ch-usage: forbidden -->
+								<Call id="c1" version="1">
+									<ScheduledStopPointRef ref="notused1" versionRef="1"/>
+								</Call>
+								<Call id="c2" version="1">
+									<ScheduledStopPointRef ref="notused2" versionRef="1"/>
+								</Call>
 							</calls>
               				<TemplateVehicleJourneyType>
                 				<!-- ch-usage: expected -->
@@ -133,9 +138,9 @@
 							<frequencyGroups>
 								<!-- ch-usage: mandatory -->
 								<!-- ch-note: We strictly map one JOURNEY FREQUENCY per SERVICE JOURNEY. -->
-								<RhythmicalJourneyGroup version="any" id="ch:1:RhythmicalJourneyGroup:0253">
+								<RhythmicalJourneyGroup version="1" id="ch:1:RhythmicalJourneyGroup:0253">
 									<!-- ch-usage: expected -->
-									<Name>Regular Interval service between 10am and 17:00 pm<!-- ch-usage: optional --><!-- ch-note: TODO - wanted? more advice on how to handle language? --></Name>
+									<Name>Regular Interval service between 10am and 17:00 pm<!-- ch-usage: optional --><!-- ch-note: **TODO** - wanted? more advice on how to handle language? --></Name>
 									<Description>At 20 &amp; 45 Minutes past the hour<!-- ch-usage: optional --></Description>
 									<FirstDepartureTime>10:00:00<!-- ch-usage: mandatory --></FirstDepartureTime>
 									<FirstDayOffset>0<!-- ch-usage: optional --></FirstDayOffset>
@@ -143,10 +148,10 @@
 									<LastDayOffset>0<!-- ch-usage: optional --></LastDayOffset>
 									<timebands>
 										<!-- ch-usage: optional -->
-										<TimebandRef version="any" ref="hde:TM_20"/>
+										<TimebandRef version="1" ref="hde:TM_20"/>
 									</timebands>
 								</RhythmicalJourneyGroup>
-								<HeadwayJourneyGroup version="any" id="ch:1:HeadwayJourneyGroup:432">
+								<HeadwayJourneyGroup version="1" id="ch:1:HeadwayJourneyGroup:432">
 									<!-- ch-usage: optional -->
 									<Name>Regular Interval service between 12am and 18:00 pm<!-- ch-usage: optional --></Name>
 									<Description>About every 20 minutes<!-- ch-usage: optional --></Description>
