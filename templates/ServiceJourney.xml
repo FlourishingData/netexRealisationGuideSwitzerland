@@ -5,10 +5,10 @@
 	<dataObjects>
 		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
 			<frames>
-				<TimetableFrame id="ch:1:TimetableFrame:j23" version="any">
+				<TimetableFrame id="ch:1:TimetableFrame:j23" version="1">
 					<vehicleJourneys>
-												<ServiceJourney id="generated" version="1"><!-- ch-root -->
-							<!-- ch-note: ServiceJourney is used for common Journeys. -->
+						<ServiceJourney id="generated" version="1"><!-- ch-root -->
+							<!-- ch-note: ServiceJourney is used for common SERVICE JOURNEYs. -->
 							<!-- ch-attrs: id version -->
 							<validityConditions>
 								<!-- ch-usage: expected -->
@@ -39,7 +39,7 @@
 								<!-- ch-note: Used to indicate Facility changes. -->
 								<facilities>
 									<!-- ch-usage: optional -->
-									<Facility id="ch:1:facility:f1" version="any" order="1">
+									<Facility id="ch:1:facility:f1" version="1" order="1">
 										<!-- ch-usage: optional -->
 										<!-- ch-see -->
 										<validityConditions>
@@ -123,7 +123,6 @@
 								<Call id="c2" version="1">
 									<ScheduledStopPointRef ref="notused2" versionRef="1"/>
 								</Call>
-								
 							</calls>
 						</ServiceJourney>
 					</vehicleJourneys>
