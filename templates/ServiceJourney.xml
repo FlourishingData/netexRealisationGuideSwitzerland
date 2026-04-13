@@ -3,7 +3,7 @@
 	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
 	<ParticipantRef>CH:BLT</ParticipantRef>
 	<dataObjects>
-		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
+		<CompositeFrame id="CH:BLT:Composite:50_110" version="1">
 			<frames>
 				<TimetableFrame id="ch:1:TimetableFrame:j23" version="1">
 					<vehicleJourneys>
@@ -43,9 +43,9 @@
 										<!-- ch-usage: optional -->
 										<!-- ch-see -->
 										<validityConditions>
-											<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="any"/>
+											<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="1"/>
 										</validityConditions>
-										<ServiceFacilitySetRef ref="ch:1:ServiceFacilitySet:A___1" versionRef="any"/>
+										<ServiceFacilitySetRef ref="ch:1:ServiceFacilitySet:A___1" versionRef="1"/>
 									</Facility>
 								</facilities>
 							</Extensions>
@@ -58,22 +58,22 @@
 								<!-- ch-usage: optional -->
 								rail
 							</TransportMode>
-							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="any">
+							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="1">
 								<!-- ch-usage: expected -->
 								<!-- ch-note: **TODO** I am not sure if it is not mandatory for us.-->
 							</TypeOfProductCategoryRef>
-							<TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="any">
+							<TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="1">
 								<!-- ch-usage: optional -->
 							</TypeOfServiceRef>
 							<noticeAssignments>
 								<!-- ch-usage: optional -->
-								<NoticeAssignment id="ch:1:NoticeAssignment:ch_1_ServiceJourney_ch_1_sjyid_100001_71707-003_1_0" version="any">
+								<NoticeAssignment id="ch:1:NoticeAssignment:ch_1_ServiceJourney_ch_1_sjyid_100001_71707-003_1_0" version="1">
 									<!-- ch-usage: optional -->
 									<!-- ch-see -->
 									<validityConditions>
-										<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="any"/>
+										<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="1"/>
 									</validityConditions>
-									<NoticeRef ref="ch:1:Notice:A___1" versionRef="any"/>
+									<NoticeRef ref="ch:1:Notice:A___1" versionRef="1"/>
 								</NoticeAssignment>
 							</noticeAssignments>
 							<occupancies>
@@ -97,7 +97,7 @@
 								<!-- ch-usage: optional -->
 								0
 							</DepartureTimeOffset>
-							<LineRef ref="ch:2:Line:11.IR.90" versionRef="any">
+							<LineRef ref="ch:2:Line:11.IR.90" versionRef="1">
 								<!--ch-usage: mandatory -->
 							</LineRef>
 							<DirectionType><!-- ch-usage: optional --><!-- ch-allowed-enums: inbound outbound --><!-- ch-note: Allowed are: inbound, outbound --></DirectionType>
