@@ -34,13 +34,15 @@
 										<!-- ch-usage: optional -->
 									</AlightAndReboard>
 									<ArrivalTime>
-										<!-- ch-usage: optional -->
+										<!-- ch-usage: expected -->
+										<!-- ch-note: Not used if departure only. -->
 									</ArrivalTime>
 									<ArrivalDateOffset>
 										<!-- ch-usage: optional -->
 									</ArrivalDateOffset>
 									<DepartureTime>
 										<!-- ch-usage: expected -->
+										<!-- ch-note: Not used if arrival only. -->
 									</DepartureTime>
 									<DepartureDateOffset>
 										<!-- ch-usage: optional -->
@@ -60,6 +62,15 @@
 									<EarliestDepartureDayOffset>
 										<!-- ch-usage: optional -->
 									</EarliestDepartureDayOffset>
+									<CheckConstraint>
+										<!-- ch-usage: optional -->
+										<!-- ch-note: **TODO - Planned for V2.1** Allows for specifying delays due to longer boarding times. -->
+									</CheckConstraint>
+									<IsFlexible>
+										<!-- ch-usage: optional -->
+										<!-- ch-note: **TODO - Planned for V2.1** Stop is only served upon prior request (e.g., booking by phone). -->
+										false
+									</IsFlexible>
 									<occupancies>
 										<!-- ch-usage: optional -->
 										<OccupancyView>
