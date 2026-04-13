@@ -7,7 +7,7 @@
 			<frames>
 				<TimetableFrame id="ch:1:TimetableFrame:j23" version="1">
 					<vehicleJourneys>
-						<ServiceJourney id="generated" version="1"><!-- ch-root -->
+						<ServiceJourney id="generated" version="1">
 							<keyList>
 								<KeyValue>
 									<Key>SJYID</Key>
