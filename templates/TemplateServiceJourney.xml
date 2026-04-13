@@ -43,9 +43,9 @@
 										<!-- ch-usage: optional -->
 										<!-- ch-see -->
 										<validityConditions>
-											<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="any"/>
+											<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="1"/>
 										</validityConditions>
-										<ServiceFacilitySetRef ref="ch:1:ServiceFacilitySet:A___1" versionRef="any"/>
+										<ServiceFacilitySetRef ref="ch:1:ServiceFacilitySet:A___1" versionRef="1"/>
 									</Facility>
 								</facilities>
 							</Extensions>
@@ -58,17 +58,17 @@
 								<!-- ch-usage: optional -->
 								rail
 							</TransportMode>
-							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="any"><!-- ch-usage: expected --></TypeOfProductCategoryRef>
-							<TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="any"><!-- ch-usage: optional --></TypeOfServiceRef>
+							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:IR" versionRef="1"><!-- ch-usage: expected --></TypeOfProductCategoryRef>
+							<TypeOfServiceRef ref="ch:1:TypeOfService:1" versionRef="1"><!-- ch-usage: optional --></TypeOfServiceRef>
 							<noticeAssignments>
 								<!-- ch-usage: optional -->
-								<NoticeAssignment id="ch:1:NoticeAssignment:ch_1_ServiceJourney_ch_1_sjyid_100001_71707-003_1_0" version="any">
+								<NoticeAssignment id="ch:1:NoticeAssignment:ch_1_ServiceJourney_ch_1_sjyid_100001_71707-003_1_0" version="1">
 									<!-- ch-usage: optional -->
 									<!-- ch-see -->
 									<validityConditions>
-										<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="any"/>
+										<AvailabilityConditionRef ref="ch:1:AvailabilityCondition:c3" versionRef="1"/>
 									</validityConditions>
-									<NoticeRef ref="ch:1:Notice:A___1" versionRef="any"/>
+									<NoticeRef ref="ch:1:Notice:A___1" versionRef="1"/>
 								</NoticeAssignment>
 							</noticeAssignments>
 							<occupancies>
@@ -94,7 +94,7 @@
                 				<!-- ch-note: **TODO** - same question as above -->
 								0
 							</DepartureTimeOffset>
-							<LineRef ref="ch:2:Line:11.IR.90" versionRef="any">
+							<LineRef ref="ch:2:Line:11.IR.90" versionRef="1">
 								<!--ch-usage: mandatory -->
 							</LineRef>
 							<DirectionType>
