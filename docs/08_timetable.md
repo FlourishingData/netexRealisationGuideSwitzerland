@@ -1,12 +1,7 @@
 # Timetables
 
-```mermaid
-sequenceDiagram
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-Alice -> Bob:Another authentication Response
-Bob --> Alice: Another authentication Response
-```
+
+
 
 ## TimetableFrame
 
@@ -15,7 +10,7 @@ A TIMETABLE FRAME holds a coherent set of timetable related elements for data ex
 The primary component exchanged by a TIMETABLE FRAME in NeTEx / Transmodel terms is the VEHICLE JOURNEY. The Swiss profile only uses the more specific SERVICE JOURNEY (which describes an individual journey) and the TEMPLATE SERVICE JOURNEY (which describes a set of journeys repeating at a certain frequency). 
 
 
-The `TimeTableFrame` contains the following allowed elements:
+The `TimetableFrame` contains the following allowed elements:
 * `ServiceJourney` and `TemplateServiceJourney`
   * `TemplateServiceJourney` is only used for frequency traffic
   * We only model journeys that are available for passenger  
@@ -25,6 +20,7 @@ The `TimeTableFrame` contains the following allowed elements:
 * `InterchangeRule`s describe interchanges between journeys
 * `JourneyMeeting`s and `JourneyPart`s describe multipart journeys which join and split **TODO**
 * `ServiceFacilitySet`s describe the various services and facilities offered by the vehicles of a journey
+
 
 
 [//]: # (TODO: Add TimetableFrame links)
@@ -45,24 +41,24 @@ A SERVICE JOURNEY is a VEHICLE JOURNEY on which passengers will be allowed to bo
 
 > [Template](../templates/ServiceJourney.xml)
 
-The following restrictions occur:
-* The attributs id, version and responsibilitySetRef must be set.
-* The validityConditions contain only one AvailablityCondition that contains only the elements FromDate, ToDate and ValidDayBits.
-* In the keyList a KeyValue pair with the Key `sjyid` must exists. The Value contains a valid Swiss Journey ID.
+((The following restrictions occur:
+* DONE: The attributs id, version and responsibilitySetRef must be set.
+* DONE: The validityConditions contain only one AvailablityCondition that contains only the elements FromDate, ToDate and ValidDayBits.
+* DONE: In the keyList a KeyValue pair with the Key `sjyid` must exists. The Value contains a valid Swiss Journey ID.
 * privateCodes: tbd
 * TransportMode: tbd
 * TypeOfProductCategoryRef: tbd
 * TypeOfServiceRef is always set to tbd
-* noticeAssignments contain all notices. Attention: they may be restricted to a given set of stops.
-* ServiceAlteration is set.
+* DONE: noticeAssignments contain all notices. Attention: they may be restricted to a given set of stops.
+* DONE: ServiceAlteration is set.
 * DepartureTime:
 * DepartureDayOffset:
-* LineRef is mandatory.
-* DirectionType is only inbound or outbound
-* trainNumbers contains at least one TrainNumberRef. TrainNumber i not allowed in it.
+* DONE: LineRef is mandatory.
+* DONE: DirectionType is only inbound or outbound
+* DONE: trainNumbers contains at least one TrainNumberRef. TrainNumber i not allowed in it.
 * Destination: xxx
 * passingTimes: ddd
-* calls are not to be used.
+* DONE: calls are not to be used.
 
 ## TemplateServiceJourney
 
@@ -73,8 +69,13 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 - [Swiss profile NeTEx definition](generated/markdown-examples/TemplateServiceJourney.md)
 - [Example snippet](generated/xml-snippets/TemplateServiceJourney.xml)
 
+> [Template](../templates/TemplateServiceJourney.xml)
 
-## AvailabilityCondition
+
+
+## AvailabilityCondition -> TODO: move to Common
+
+A specific type of VALIDITY CONDITION used to specify a set of temporal conditions that can be associated with an ENTITY, for example that a STOP PLACE is open on a particular DAY TYPE.
 
 [//]: # (TODO: Add AvailabilityCondition links)
 - [General NeTEx definition ](generated/xcore/AvailabilityCondition.html)
@@ -84,7 +85,8 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 > [Template](../templates/AvailabilityCondition.xml)
 
 
-## Timeband
+
+## Timeband -> TODO: move to Common
 
 
 [//]: # (TODO: Add Timeband links)
@@ -96,8 +98,9 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 
 
 
-## NoticeAssignment
+## NoticeAssignment -> TODO: move to Common
 
+The assignment of a NOTICE to any model element. Can be used in particular to show an exception in a JOURNEY PATTERN, a COMMON SECTION, or a VEHICLE JOURNEY, possibly specifying at which POINT IN JOURNEY PATTERN the validity of the NOTICE starts and ends respectively.
 
 [//]: # (TODO: Add NoticeAssignment links)
 - [General NeTEx definition ](generated/xcore/NoticeAssignment.html)
@@ -109,6 +112,7 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 
 ## OccupancyView
 
+The OccupancyView element can be used on the JOURNEY, JOURNEY PART, and TIMETABLED PASSING TIME elements. Used for predicted and planned occupancies of vehicles.
 
 [//]: # (TODO: Add OccupancyView links)
 - [General NeTEx definition ](generated/xcore/OccupancyView.html)
@@ -121,6 +125,7 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 
 ## TrainNumber
 
+Codes assigned to particular VEHICLE JOURNEYs when operated by TRAINs or COMPOUND TRAINs. ServiceJourneys can in principle have multiple different TrainNumbers whereas a JourneyPart can only reference a single one.
 
 [//]: # (TODO: Add TrainNumber links)
 - [General NeTEx definition ](generated/xcore/TrainNumber.html)
@@ -133,6 +138,7 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 
 ## TimetabledPassingTime
 
+Long-term planned time data concerning public transport vehicles passing a particular POINT IN JOURNEY PATTERN on a specified VEHICLE JOURNEY for a certain DAY TYPE. Note that for Journeys lasting more than one day, DayOffset is available. If DepartureTime is not on the same day as ArrivalTime this information will be provided using WaitingTime.
 
 [//]: # (TODO: Add TimetabledPassingTime links)
 - [General NeTEx definition ](generated/xcore/TimetabledPassingTime.html)
@@ -141,8 +147,9 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 
 > [Template](../templates/TimetabledPassingTime.xml)
 
-## ServiceFacilitySet
+## ServiceFacilitySet -> TODO: move to Common
 
+Set of FACILITies available for a SERVICE JOURNEY or a JOURNEY PART. The set may be available only for a specific VEHICLE TYPE within the SERVICE (e.g. carriage equipped with low floor). 
 
 [//]: # (TODO: Add ServiceFacilitySet links)
 - [General NeTEx definition ](generated/xcore/ServiceFacilitySet.html)
@@ -164,3 +171,10 @@ tbd
 
 ## InterchangeRule
 tbd
+
+INTERCHANGE RULE specifies conditions governing the possibility of interchanging between two SERVICE JOURNEYs, stopping at the same or different SCHEDULED STOP POINTs, where at least one of the two SERVICE JOURNEYs is indicated indirectly by a DIRECTION, LINE or VEHICLE JOURNEY.
+
+
+
+
+
