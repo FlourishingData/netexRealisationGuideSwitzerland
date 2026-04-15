@@ -12,13 +12,15 @@
 					  <!-- ch-root -->
 					  <!-- ch-attrs: id version -->
 					  <Description>No bla bla<!-- ch-usage: ignored --></Description>
-					  <FromDate>2026-05-17T00:00:00Z
+					  <FromDate>
 						<!-- ch-usage: optional -->
 						<!-- ch-note: Is equal to the start date of the timetable year or, more generally, the period in which the ValidDayBits apply.  -->
+						2026-05-17T00:00:00Z
 					  </FromDate>
-					  <ToDate>2026-05-17T00:00:00Z
+					  <ToDate>
 						<!-- ch-usage: optional -->
 						<!-- ch-note: Is equal to the end date of the timetable year or, more generally, the period in which the ValidDayBits apply. -->
+						2026-05-17T00:00:00Z
 					  </ToDate>
 					  <IsAvailable>
 						<!-- ch-usage: mandatory -->
