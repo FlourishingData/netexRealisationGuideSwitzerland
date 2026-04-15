@@ -28,7 +28,7 @@ The `TimeTableFrame` contains the following allowed elements:
 
 
 [//]: # (TODO: Add TimetableFrame links)
-- [General NeTEx definition ](generated/xcore/TimetableFram.html)
+- [General NeTEx definition ](generated/xcore/TimetableFrame.html)
 - [Swiss profile NeTEx definition](generated/markdown-examples/TimetableFrame.md)
 - [Example snippet](generated/xml-snippets/TimetableFrame.xml)
 
@@ -74,7 +74,93 @@ A TEMPLATE SERVICE JOURNEY is a (repeating) VEHICLE JOURNEY on which passengers 
 - [Example snippet](generated/xml-snippets/TemplateServiceJourney.xml)
 
 
+## AvailabilityCondition
+
+[//]: # (TODO: Add AvailabilityCondition links)
+- [General NeTEx definition ](generated/xcore/AvailabilityCondition.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/AvailabilityCondition.md)
+- [Example snippet](generated/xml-snippets/AvailabilityCondition.xml)
+
+> [Template](../templates/AvailabilityCondition.xml)
 
 
-## PassingTime
+## Timeband
+
+
+[//]: # (TODO: Add Timeband links)
+- [General NeTEx definition ](generated/xcore/Timeband.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/Timeband.md)
+- [Example snippet](generated/xml-snippets/Timeband.xml)
+
+> [Template](../templates/Timeband.xml)
+
+
+
+## NoticeAssignment
+
+
+[//]: # (TODO: Add NoticeAssignment links)
+- [General NeTEx definition ](generated/xcore/NoticeAssignment.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/NoticeAssignment.md)
+- [Example snippet](generated/xml-snippets/NoticeAssignment.xml)
+
+> [Template](../templates/NoticeAssignment.xml)
+
+
+## OccupancyView
+
+
+[//]: # (TODO: Add OccupancyView links)
+- [General NeTEx definition ](generated/xcore/OccupancyView.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/OccupancyView.md)
+- [Example snippet](generated/xml-snippets/OccupancyView.xml)
+
+> [Template](../templates/OccupancyView.xml)
+
+
+
+## TrainNumber
+
+
+[//]: # (TODO: Add TrainNumber links)
+- [General NeTEx definition ](generated/xcore/TrainNumber.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/TrainNumber.md)
+- [Example snippet](generated/xml-snippets/TrainNumber.xml)
+
+> [Template](../templates/TrainNumber.xml)
+
+
+
+## TimetabledPassingTime
+
+
+[//]: # (TODO: Add TimetabledPassingTime links)
+- [General NeTEx definition ](generated/xcore/TimetabledPassingTime.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/TimetabledPassingTime.md)
+- [Example snippet](generated/xml-snippets/TimetabledPassingTime.xml)
+
+> [Template](../templates/TimetabledPassingTime.xml)
+
+## ServiceFacilitySet
+
+
+[//]: # (TODO: Add ServiceFacilitySet links)
+- [General NeTEx definition ](generated/xcore/ServiceFacilitySet.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/ServiceFacilitySet.md)
+- [Example snippet](generated/xml-snippets/ServiceFacilitySet.xml)
+
+> [Template](../templates/ServiceFacilitySet.xml)
+
+## JourneyMeeting
+tbd
+
+[//]: # (TODO: Add JourneyMeeting links)
+- [General NeTEx definition ](generated/xcore/JourneyMeeting.html)
+- [Swiss profile NeTEx definition](generated/markdown-examples/JourneyMeeting.md)
+- [Example snippet](generated/xml-snippets/JourneyMeeting.xml)
+
+> [Template](../templates/JourneyMeeting.xml)
+
+
+## InterchangeRule
 tbd
