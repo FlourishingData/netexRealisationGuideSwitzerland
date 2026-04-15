@@ -3,9 +3,9 @@
 	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
 	<ParticipantRef>CH:BLT</ParticipantRef>
 	<dataObjects>
-		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
+		<CompositeFrame id="CH:BLT:Composite:50_110" version="1">
 			<frames>
-								<TimetableFrame id="ch:1:TimetableFrame:j23" version="any"><!-- ch-root -->
+				<TimetableFrame id="ch:1:TimetableFrame:j23" version="1"><!-- ch-root -->
 					<!-- ch-attrs: id version/versionRef -->
 					<vehicleJourneys>
 						<!-- ch-usage: expected -->
@@ -41,7 +41,7 @@
 						<!-- ch-usage: expected -->
 						<TypeOfService id="ch:1:TypeOfService:1" version="1">
 							<!-- ch-usage: expected -->
-							<!-- ch-class-id-must-exit -->
+							<!-- ch-class-id-must-exist -->
 							<!-- ch-note: This is exactly how the TypeOfService should be defined for Switzerland. Attention: Only once per file. -->
 							<Name lang="en">PublicJourney</Name>
 							<!-- ch-usage: expected -->
@@ -53,7 +53,7 @@
 					</typesOfService>
 					<journeyMeetings>
 						<!-- ch-usage: optional -->
-						<JourneyMeeting id="ch:1:JourneyMeeting:1" version="any">
+						<JourneyMeeting id="ch:1:JourneyMeeting:1" version="1">
 							<!-- ch-usage: optional -->
 							<!-- ch-note: Check latest policy - InterchangeRule may be the preferred alternative. **TODO**-->
 							<!-- ch-see -->
