@@ -43,9 +43,10 @@
 							</validityConditions>
 							<keyList>
 								<!-- ch-usage: mandatory -->
-								<!-- ch-note: KEY LIST with the KEY VALUEs beloning to the SERVICE JOURNEY. Will contain the SJYID. -->
+								<!-- ch-note: KEY LIST with the KEY VALUEs belonjing to the SERVICE JOURNEY. Will contain the SJYID. -->
 								<KeyValue>
 									<!-- ch-usage: mandatory -->
+									<!-- ch-note: A KeyValue pair with the Key SJYID must exist. The Value contains a valid Swiss Journey ID. -->
 									<Key><!-- ch-usage: mandatory -->SJYID</Key>
 									<Value><!-- ch-usage: mandatory -->ch:1:sjyid:100001:71707-003</Value>
 								</KeyValue>
@@ -83,6 +84,7 @@
 							</TypeOfServiceRef>
 							<noticeAssignments>
 								<!-- ch-usage: optional -->
+								<!-- ch-note: The complete set of all applicable notices. Attention: Notices may be restricted to a given set of stops. -->
 								<NoticeAssignment id="ch:1:NoticeAssignment:ch_1_ServiceJourney_ch_1_sjyid_100001_71707-003_1_0" version="1">
 									<!-- ch-usage: optional -->
 									<!-- ch-see -->
@@ -100,7 +102,7 @@
 								</OccupancyView>
 							</occupancies>
 							<ServiceAlteration>
-								<!-- ch-usage: optional -->
+								<!-- ch-usage: mandatory -->
 								<!-- ch-allowed-enums: planned -->
 								<!-- ch-note: Only the value planned is allowed. -->
 								planned
