@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://www.netex.org.uk/netex ../xsd/xsd/NeTEx_publication.xsd">
+	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
+	<ParticipantRef>SKI-Templates</ParticipantRef>
+	<dataObjects>
+		<CompositeFrame id="ch:1:CompositeFrame" version="any">
+			<frames>
+				<ServiceFrame id="ch:1:ServiceFrame" version="any">
+					<scheduledStopPoints>
+						<!-- ch-root -->
+						<ScheduledStopPoint id="ch:1:ScheduledStopPoint:8504128:1" version="any">
+							<!-- ch-note: Swiss ScheduledStopPoint are using the sloid in the id, when possible.-->
+							<!-- ch-usage: mandatory -->
+							<keyList>
+								<!-- ch-usage: mandatory -->
+								<KeyValue>
+									<!-- ch-usage: mandatory -->
+									<!-- ch-note: We expect a DIDOK key and a SLOID, whereever possible. -->
+									<Key><!-- ch-usage: mandatory -->DIDOK</Key>
+									<Value><!-- ch-usage: mandatory -->8504128</Value>
+								</KeyValue>
+								<KeyValue>
+									<Key>SLOID</Key>
+									<Value>ch:1:sloid:4128</Value>
+								</KeyValue>
+							</keyList>
+							<Name lang="de"><!-- ch-usage: mandatory --><!-- ch-note: The names are the same in all languages. -->Murten/Morat</Name>
+							<ShortName lang="de"><!-- ch-usage: mandatory --><!-- ch-note: StopPlace : Name of the Place, Quay : ShortName of the Quay -->1</ShortName>
+						</ScheduledStopPoint>
+					</scheduledStopPoints>
+				</ServiceFrame>
+			</frames>
+		</CompositeFrame>
+	</dataObjects>
+</PublicationDelivery>

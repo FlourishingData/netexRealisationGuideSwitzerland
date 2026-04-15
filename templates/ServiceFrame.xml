@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.netex.org.uk/netex ../xsd/xsd/NeTEx_publication.xsd">
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:schemaLocation="http://www.netex.org.uk/netex ../xsd/xsd/NeTEx_publication.xsd">
 	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
-	<ParticipantRef>CH:BLT</ParticipantRef>
+	<ParticipantRef>SKI-Templates</ParticipantRef>
 	<dataObjects>
-		<CompositeFrame id="CH:BLT:Composite:50_110" version="any">
+		<CompositeFrame id="ch:1:CompositeFrame" version="any">
 			<frames>
-								<ServiceFrame id="ch:1:ServiceFrame:j23" version="any"><!-- ch-root -->
+				<ServiceFrame id="ch:1:ServiceFrame" version="any">
+					<!-- ch-root -->
 					<!-- ch-note: A minimal ServiceFrame must be present in all timetable files. TODO: analyse which part is in the general one.-->
 					<!-- ch-note: TODO how would we describe additional id and which ones are mandatory?-->
 					<directions>
@@ -38,16 +39,19 @@
 					</groupsOfLines>
 					<destinationDisplays>
 						<!-- ch-note: We only allow fully formed content of destinationDisplays -->
+						<!-- ch-usage: expected -->
 						<DestinationDisplay id="generated-id" version="1">
 							<!-- ch-note: We only allow fully formed content of destinationDisplays -->
+							<!-- ch-usage: expected -->
 							<!-- ch-see -->
 						</DestinationDisplay>
 					</destinationDisplays>
 					<scheduledStopPoints>
 						<!-- ch-note: Swiss ScheduledStopPoint are using the sloid in the id, when possible.-->
+						<!-- ch-usage: mandatory -->
 						<ScheduledStopPoint id="sloid_where_possible" version="1">
 							<!-- ch-note: TODO full or not -->
-							<!-- referenced -->
+							<!-- ch-see -->
 						</ScheduledStopPoint>
 					</scheduledStopPoints>
 					<connections>
@@ -58,27 +62,34 @@
 						</Access>
 						<SiteConnection id="generated" version="1">
 							<!-- ch-note: SiteConnection are used only in the main file and not in timetable files.-->
+							<!-- ch-usage: expected -->
 							<!-- ch-see -->
 						</SiteConnection>
 						<Connection id="generated" version="1">
 							<!-- ch-note: Connection is used only used in the site file -->
 							<!-- ch-see -->
+							<!-- ch-usage: expected-->
 						</Connection>
 						<DefaultConnection id="generated" version="1">
 							<!-- ch-note: DefaultConnection is only used in the site file -->
+							<!-- ch-usage: expected-->
 							<!-- ch-see -->
 						</DefaultConnection>
 					</connections>
 					<stopAssignments>
+						<!-- ch-usage: expected-->
 						<PassengerStopAssignment id="generated" version="1">
-							<!-- ch-note: are only ued in a special PSA file in the export. -->
+							<!-- ch-note: are only used in a special PSA file in the export. -->
+							<!-- ch-usage: expected -->
 							<!-- ch-see -->
 						</PassengerStopAssignment>
 					</stopAssignments>
 					<notices>
 						<!-- ch-note: notices may be present or not -->
+						<!-- ch-usage: expected-->
 						<Notice id="generated" version="1">
 							<!-- ch-note: if notices are present, one Notice must be. -->
+							<!-- ch-usage: expected-->
 							<!-- ch-see -->
 						</Notice>
 					</notices>

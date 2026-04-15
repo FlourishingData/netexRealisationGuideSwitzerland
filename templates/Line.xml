@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PublicationDelivery xmlns="http://www.netex.org.uk/netex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://www.netex.org.uk/netex ../xsd/xsd/NeTEx_publication.xsd">
+	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
+	<ParticipantRef>SKI-Templates</ParticipantRef>
+	<dataObjects>
+		<CompositeFrame id="ch:1:CompositeFrame" version="1">
+			<frames>
+				<ServiceFrame id="ch:1:ServiceFrame" version="1">
+					<lines>
+						<Line id="use swiss line id where possible" version="1" responsibilitySetRef="dsa">
+						
+							<!-- ch-root -->
+							<!-- ch-usage: mandatory -->
+							<!-- ch-attrs: responsibilitySetRef -->
+							<!-- ch-note: We have a duplication with responsibilitySet and OperatorRef. With AuthorityRef we currently have a problem, because we can't use the same organisation **TODO** -->
+							<ValidBetween>
+								<!-- ch-usage: expected -->
+								<!-- ch-note: Usually set to the whole timetable year -->
+								<FromDate><!-- ch-usage: expected -->2022-12-11T00:00:00</FromDate>
+								<ToDate><!-- ch-usage: expected -->2023-12-09T23:59:59</ToDate>
+							</ValidBetween>
+							<keyList>
+								<!-- ch-usage: mandatory -->
+								<KeyValue>
+									<!-- ch-usage: expected -->
+									<!-- ch-note: The SLNID is mandatory, when it exists -->
+									<Key><!-- ch-usage: expected -->SLNID</Key>
+									<Value><!-- ch-usage: expected -->ch:1:slnid:102846</Value>
+								</KeyValue>
+							</keyList>
+							<Name><!-- ch-usage: mandatory --><!-- ch-note: contains attribute D T from HRDF. Is not translated on purpose.-->3</Name>
+							<ShortName><!-- ch-usage: expected--><!-- ch-note: contains the LinieKurzName (attribut N T in HRDF) -->3</ShortName>
+							<TransportMode><!-- ch-usage: mandatory -->rail</TransportMode>
+							<TransportSubmode>
+								<RailSubmode><!-- ch-usage: expected -->suburbanRailway</RailSubmode>
+							</TransportSubmode>
+							<PublicCode><!-- ch-usage: mandatory --><!-- ch-note: Contains LinieLangName (attribute LT from HRDF) -->3</PublicCode>
+							<AuthorityRef ref="ch:1:Operator:11" versionRef="1">
+								<!-- ch-usage: mandatory -->
+								<!-- ch-note: Contains the AUTHORITY OF the LINE. -->
+							</AuthorityRef>
+							<OperatorRef ref="ch:1:Operator:11" versionRef="1">
+								<!-- ch-usage: optional -->
+								<!-- ch-note: The operator is the transport organisation that really will do the operation. If different from AuthorityRef -->
+							</OperatorRef>
+							<TypeOfProductCategoryRef ref="ch:1:TypeOfProductCategory:TER" versionRef="1">
+								<!-- ch-usage: mandatory -->
+								<!-- ch-note: **TODO** needs tobe clarified from BS KI -->
+							</TypeOfProductCategoryRef>
+							
+						</Line>
+					</lines>
+
+				</ServiceFrame>
+			</frames>
+		</CompositeFrame>
+	</dataObjects>
+</PublicationDelivery>

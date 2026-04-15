@@ -3,16 +3,16 @@
 	<PublicationTimestamp>2026-03-30T12:00:00</PublicationTimestamp>
 	<ParticipantRef>SKI-Template</ParticipantRef>
 	<dataObjects>
-		<CompositeFrame id="ch:1:CompositeFrame" version="any">
+		<CompositeFrame id="ch:1:CompositeFrame" version="1">
 			<FrameDefaults/>
 			<frames>
-				<ResourceFrame id="ch:1:ResourceFrame" version="any"/>
-								<SiteFrame id="ch:1:SiteFrame" version="any"><!-- ch-root -->
+				<ResourceFrame id="ch:1:ResourceFrame" version="1"/>
+								<SiteFrame id="ch:1:SiteFrame" version="1"><!-- ch-root -->
 					<!-- ch-usage: expected -->
 					<!-- ch-note: **TODO** most documenation from the RG is missing here. Pls note that with expection from ch-start and ch-stop. All other annotations are to be put within the element -->
 					<topographicPlaces>
 						<!-- ch-usage: optional -->
-						<TopographicPlace id="ch:1:TopoGraphicPlace:CH-BE" version="any">
+						<TopographicPlace id="ch:1:TopoGraphicPlace:CH-BE" version="1">
 							<!-- ch-usage: expected -->
 							<!-- ch-see -->
 							<Descriptor>
@@ -24,25 +24,25 @@
 					</topographicPlaces>
 					<addresses>
 						<!-- ch-usage: forbidden -->
-						<PostalAddress id="address1" version="any"/>
+						<PostalAddress id="address1" version="1"/>
 					</addresses>
 					<accesses>
 						<!-- ch-usage: forbidden -->
-						<Access id="access1" version="any">
+						<Access id="access1" version="1">
 							<From/>
 							<To/>
 						</Access>
 					</accesses>
 					<stopPlaces>
 						<!-- ch-usage: mandatory -->
-						<StopPlace id="ch:1:sloid:7000" version="any">
+						<StopPlace id="ch:1:sloid:7000" version="1">
 							<!-- ch-usage: mandatory -->
 							<!-- ch-see -->
 						</StopPlace>
 					</stopPlaces>
 					<flexibleStopPlaces>
 						<!-- ch-usage: forbidden -->
-						<FlexibleStopPlace id="flexibleStopPlace1" version="any">
+						<FlexibleStopPlace id="flexibleStopPlace1" version="1">
 						</FlexibleStopPlace>
 					</flexibleStopPlaces>
 					<navigationPaths>
